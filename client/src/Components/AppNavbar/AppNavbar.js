@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  MDBContainer,
   MDBNavbar,
   MDBNavbarBrand,
   MDBNavbarNav,
@@ -138,8 +137,6 @@ class AppNavbar extends React.Component {
     };
 
     return (
-      // <div className="AppNavbar">
-      // <MDBContainer>
       <MDBNavbar color="unique-color" dark expand="md">
         <MDBNavbarBrand>
           <strong className="white-text">DM InSights</strong>
@@ -147,19 +144,8 @@ class AppNavbar extends React.Component {
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           {buidlNavbar()}
-          {/* <MDBNavbarNav right>
-          <MDBNavItem>
-            <MDBFormInline waves>
-              <div className="md-form my-0">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-              </div>
-            </MDBFormInline>
-          </MDBNavItem>
-        </MDBNavbarNav> */}
         </MDBCollapse>
       </MDBNavbar>
-      // </MDBContainer>
-      // </div>);
     );
   }
 }
