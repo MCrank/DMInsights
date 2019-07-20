@@ -1,1 +1,14 @@
 @import '../../styles/variables';
+
+.nav-icon {
+  padding-right: 8px;
+}
+
+.nav-divider {
+  border: 1px solid $themeGold;
+  margin: 0px 5px;
+}
+
+.nav-link {
+  min-width: 125px;
+}

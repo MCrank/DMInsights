@@ -7,6 +7,7 @@ import {
   MDBNavLink,
   MDBNavbarToggler,
   MDBCollapse,
+  MDBIcon,
   // MDBFormInline,
   MDBDropdown,
   MDBDropdownToggle,
@@ -20,6 +21,7 @@ import './AppNavbar.scss';
 class AppNavbar extends React.Component {
   state = {
     isAuthed: false,
+    activeLink: 'Home',
   };
 
   checkAuthentication = async () => {
@@ -40,6 +42,9 @@ class AppNavbar extends React.Component {
 
   componentDidMount() {
     this.checkAuthentication();
+    this.setState({
+      activeLink: window.location.pathname,
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,23 +59,61 @@ class AppNavbar extends React.Component {
     });
   };
 
+  linkClick = (e) => {
+    console.log(e.target.innerText);
+    this.setState({
+      activeLink: e.target.pathname,
+    });
+  };
+
   render() {
-    const { isAuthed } = this.state;
+    const { isAuthed, activeLink } = this.state;
     const buidlNavbar = () => {
       if (isAuthed) {
         return (
           <MDBNavbarNav right>
-            <MDBNavItem active>
-              <MDBNavLink to="#!">Home</MDBNavLink>
+            <MDBNavItem className={activeLink === '/' ? 'active' : 'default'}>
+              <MDBNavLink to="/" onClick={this.linkClick}>
+                <MDBIcon className="nav-icon" icon="home" size="lg" />
+                Home
+              </MDBNavLink>
             </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Characters</MDBNavLink>
+            <div className="nav-divider" />
+            <MDBNavItem className={activeLink === '/characters' ? 'active' : 'default'}>
+              <MDBNavLink to="/characters" onClick={this.linkClick}>
+                <MDBIcon className="nav-icon" icon="users" size="lg" />
+                Characters
+              </MDBNavLink>
             </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Campaigns</MDBNavLink>
+            <div className="nav-divider" />
+            <MDBNavItem className={activeLink === '/npcs' ? 'active' : 'default'}>
+              <MDBNavLink to="/npcs" onClick={this.linkClick}>
+                <MDBIcon className="nav-icon" icon="pastafarianism" size="lg" />
+                NPCs
+              </MDBNavLink>
             </MDBNavItem>
+            <div className="nav-divider" />
+            <MDBNavItem className={activeLink === '/campaigns' ? 'active' : 'default'}>
+              <MDBNavLink to="/campaigns" onClick={this.linkClick}>
+                <MDBIcon className="nav-icon" icon="atlas" size="lg" />
+                Campaigns
+              </MDBNavLink>
+            </MDBNavItem>
+            <div className="nav-divider" />
+            <MDBNavItem className={activeLink === '/about' ? 'active' : 'default'}>
+              <MDBNavLink to="/about" onClick={this.linkClick}>
+                <MDBIcon className="nav-icon" icon="question-circle" size="lg" />
+                About
+              </MDBNavLink>
+            </MDBNavItem>
+            <div className="nav-divider" />
             <MDBNavItem>
-              <MDBDropdown>
+              <MDBNavLink to="#!" onClick={this.logoutFunction}>
+                <MDBIcon className="nav-icon" icon="sign-out-alt" size="lg" />
+                Logout
+              </MDBNavLink>
+
+              {/* <MDBDropdown>
                 <MDBDropdownToggle nav caret>
                   <span className="mr-2">Profile</span>
                 </MDBDropdownToggle>
@@ -78,10 +121,8 @@ class AppNavbar extends React.Component {
                   <MDBDropdownItem href="#!">Action</MDBDropdownItem>
                   <hr />
                   <MDBDropdownItem onClick={this.logoutFunction}>Logout</MDBDropdownItem>
-                  {/* <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                    <MDBDropdownItem href="#!">Something else here</MDBDropdownItem> */}
                 </MDBDropdownMenu>
-              </MDBDropdown>
+              </MDBDropdown> */}
             </MDBNavItem>
           </MDBNavbarNav>
         );
@@ -96,26 +137,15 @@ class AppNavbar extends React.Component {
     };
 
     return (
-      // <div className="AppNavbar">
-      <MDBNavbar color="indigo" dark expand="md">
+      <MDBNavbar color="unique-color" dark expand="md">
         <MDBNavbarBrand>
           <strong className="white-text">DM InSights</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           {buidlNavbar()}
-          {/* <MDBNavbarNav right>
-          <MDBNavItem>
-            <MDBFormInline waves>
-              <div className="md-form my-0">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-              </div>
-            </MDBFormInline>
-          </MDBNavItem>
-        </MDBNavbarNav> */}
         </MDBCollapse>
       </MDBNavbar>
-      // </div>);
     );
   }
 }
