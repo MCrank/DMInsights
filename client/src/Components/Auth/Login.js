@@ -26,7 +26,11 @@ class Login extends React.Component {
   }
 
   onSuccess = (res) => {
-    return this.props.auth.handleAuthentication();
+    if (res.status === 'ACTIVATION_EMAIL_SENT') {
+      return;
+    } else {
+      return this.props.auth.handleAuthentication();
+    }
   };
 
   onError = (err) => {

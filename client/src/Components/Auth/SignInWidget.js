@@ -17,9 +17,12 @@ class SignInWidget extends React.Component {
         display: 'page',
       },
       brandName: 'DM Insights',
-      logo: 'DMI_Logo_light.png',
+      logo: 'DMI_Logo_light_2.png',
       idps: [{ type: 'GOOGLE', id: '0oaukkt05FMpGDIOs356' }],
       idpDisplay: 'PRIMARY',
+      features: {
+        registration: true,
+      },
     });
     this.widget.renderEl({ el }, this.props.onSuccess, this.props.onError);
   }
