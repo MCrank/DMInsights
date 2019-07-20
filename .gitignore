@@ -2,7 +2,7 @@
 
 # ----- React ----
 # dependencies
-/node_modules
+client/node_modules
 /.pnp
 .pnp.js
 
@@ -10,13 +10,10 @@
 /coverage
 
 # production
-/build
+client/build
 
 # API
-/src/helpers/apikeys.js
-
-# Firebase
-/.firebase/*
+client/src/helpers/apiKeys.js
 
 # misc
 .DS_Store
