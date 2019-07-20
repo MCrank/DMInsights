@@ -99,7 +99,7 @@ class AppNavbar extends React.Component {
       // <div className="AppNavbar">
       <MDBNavbar color="indigo" dark expand="md">
         <MDBNavbarBrand>
-          <strong className="white-text">DM Insights</strong>
+          <strong className="white-text">DM InSights</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
