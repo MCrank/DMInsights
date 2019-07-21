@@ -15,6 +15,7 @@ class SignInWidget extends React.Component {
         issuer: 'default',
         responseType: ['id_token', 'token'],
         display: 'page',
+        scopes: ['openid', 'profile', 'email', 'dmi'],
       },
       brandName: 'DM Insights',
       logo: 'DMI_Logo_light_2.png',
