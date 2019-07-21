@@ -35,6 +35,7 @@ class AppNavbar extends React.Component {
 
   logoutFunction = async () => {
     await this.props.auth.logout();
+    sessionStorage.removeItem('DMI_User');
     this.setState({
       isAuthed: false,
     });
@@ -60,7 +61,6 @@ class AppNavbar extends React.Component {
   };
 
   linkClick = (e) => {
-    console.log(e.target.innerText);
     this.setState({
       activeLink: e.target.pathname,
     });
