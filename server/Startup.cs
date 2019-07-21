@@ -47,6 +47,7 @@ namespace DMInsights
 
             services.Configure<DBConfiguration>(Configuration);
             services.AddTransient<UsersRepository>();
+            services.AddTransient<PlayerCharactersRepository>();
 
             services.AddSingleton<IConfiguration>(Configuration);
         }

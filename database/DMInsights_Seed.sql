@@ -270,6 +270,12 @@ BEGIN
         ([FirstName], [LastName], [UserName], [IdToken])
     VALUES
         ('Giovanni', 'Moggach', 'Solstice', '0c2a81680b1bf079bd8f3121f19d73c8')
+    
+    INSERT INTO [dbo].[Users]
+        ([FirstName], [LastName], [UserName], [IdToken])
+    VALUES
+        ('Marco', 'Crank', 'marco_mcse@hotmail.com', '00uujnwjxbFP3qXr3356')
+
 END
 
 -- Campaigns
@@ -354,7 +360,7 @@ BEGIN
     INSERT INTO [dbo].[PlayerCharacters]
         ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (124, 18, 'You''re my boy Blue!', 'https://wiki.rpg.net/images/6/64/Vagha_Blue_Dragonborn.jpg', 30, 2, 'Dragon Born', 'Dragon', 13, 4, 16, 'Paladin', 12, 2)
+        (124, 18, 'You''re my boy Blue!', 'https://wiki.rpg.net/images/6/64/Vagha_Blue_Dragonborn.jpg', 30, 4, 'Dragon Born', 'Dragon', 13, 4, 16, 'Paladin', 12, 2)
 
     INSERT INTO [dbo].[PlayerCharacters]
         ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
@@ -374,7 +380,7 @@ BEGIN
     INSERT INTO [dbo].[PlayerCharacters]
         ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (75, 15, 'Sorceress', 'https://gamepedia.cursecdn.com/witcher_gamepedia/c/c3/Tw3_cardart_northernrealms_keira.png', 30, 2, 'Human', 'Humanoid', 11, 1, 17, 'Sorcerer', 12, 4)
+        (75, 15, 'Sorceress', 'https://gamepedia.cursecdn.com/witcher_gamepedia/c/c3/Tw3_cardart_northernrealms_keira.png', 30, 4, 'Human', 'Humanoid', 11, 1, 17, 'Sorcerer', 12, 4)
 END
 
 -- GameSessions
