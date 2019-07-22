@@ -79,6 +79,7 @@ CREATE TABLE [CampaignsUsers]
 CREATE TABLE [PlayerCharacters]
 (
     [Id] INT IDENTITY(1, 1) NOT NULL,
+    [Name] NVARCHAR(255) NOT NULL,
     [HitPoints] INT NOT NULL,
     [ArmorClass] INT NOT NULL,
     [Description] NVARCHAR(255),
@@ -270,6 +271,12 @@ BEGIN
         ([FirstName], [LastName], [UserName], [IdToken])
     VALUES
         ('Giovanni', 'Moggach', 'Solstice', '0c2a81680b1bf079bd8f3121f19d73c8')
+    
+    INSERT INTO [dbo].[Users]
+        ([FirstName], [LastName], [UserName], [IdToken])
+    VALUES
+        ('Marco', 'Crank', 'marco_mcse@hotmail.com', '00uujnwjxbFP3qXr3356')
+
 END
 
 -- Campaigns
@@ -347,34 +354,34 @@ BEGIN
     USE [DMInsights]
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (49, 16, 'He was a great hero', 'https://gamepedia.cursecdn.com/witcher_gamepedia/9/9f/Tw3_cardart_nilfgaard_vreemde.png?version=9707f7c3165dea9fc2f77df68230395c', 30, 1, 'Human', 'Humanoid', 13, 4, 14, 'Cleric', 8, 1)
+        ('Bazquirk', 49, 16, 'He was a great hero', 'https://gamepedia.cursecdn.com/witcher_gamepedia/9/9f/Tw3_cardart_nilfgaard_vreemde.png?version=9707f7c3165dea9fc2f77df68230395c', 30, 1, 'Human', 'Humanoid', 13, 4, 14, 'Cleric', 8, 1)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (124, 18, 'You''re my boy Blue!', 'https://wiki.rpg.net/images/6/64/Vagha_Blue_Dragonborn.jpg', 30, 2, 'Dragon Born', 'Dragon', 13, 4, 16, 'Paladin', 12, 2)
+        ('Foobar', 124, 18, 'You''re my boy Blue!', 'https://wiki.rpg.net/images/6/64/Vagha_Blue_Dragonborn.jpg', 30, 4, 'Dragon Born', 'Dragon', 13, 4, 16, 'Paladin', 12, 2)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (21, 13, 'Fire slinger', 'https://upload.wikimedia.org/wikipedia/en/0/09/Minsc.jpg', 30, 3, 'Human', 'Humanoid', 12, 1, 15, 'Wizard', 2, 3)
+        ('Bisquick', 21, 13, 'Fire slinger', 'https://upload.wikimedia.org/wikipedia/en/0/09/Minsc.jpg', 30, 3, 'Human', 'Humanoid', 12, 1, 15, 'Wizard', 2, 3)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (52, 17, 'Short and Stour', 'http://lrpc.wdfiles.com/local--files/dwarf/F%20Hill%20Dwarf.png', 25, 3, 'Dwarf', 'Humanoid', 11, 3, NULL, 'Fighter', 8, 4)
+        ('FizzBazz', 52, 17, 'Short and Stour', 'http://lrpc.wdfiles.com/local--files/dwarf/F%20Hill%20Dwarf.png', 25, 3, 'Dwarf', 'Humanoid', 11, 3, NULL, 'Fighter', 8, 4)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (67, 19, 'He was a great hero', 'https://i.stack.imgur.com/bp4Ysm.jpg', 55, 1, 'Half-Elf', 'Humanoid', 16, 5, 16, 'Monk', 10, NULL)
+        ('Furry', 67, 19, 'He was a great hero', 'https://i.stack.imgur.com/bp4Ysm.jpg', 55, 1, 'Half-Elf', 'Humanoid', 16, 5, 16, 'Monk', 10, NULL)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        (75, 15, 'Sorceress', 'https://gamepedia.cursecdn.com/witcher_gamepedia/c/c3/Tw3_cardart_northernrealms_keira.png', 30, 2, 'Human', 'Humanoid', 11, 1, 17, 'Sorcerer', 12, 4)
+        ('Beeyatch', 75, 15, 'Sorceress', 'https://gamepedia.cursecdn.com/witcher_gamepedia/c/c3/Tw3_cardart_northernrealms_keira.png', 30, 4, 'Human', 'Humanoid', 11, 1, 17, 'Sorcerer', 12, 4)
 END
 
 -- GameSessions
