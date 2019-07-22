@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DMInsights.Models.Users
 {
-    public class CreateUser
+    public class UserCreate
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

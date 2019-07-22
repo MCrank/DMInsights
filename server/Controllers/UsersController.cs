@@ -53,7 +53,7 @@ namespace DMInsights.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public ActionResult<CreateUser> CreateUser([FromBody] CreateUser newUserObject)
+        public ActionResult<UserCreate> CreateUser([FromBody] UserCreate newUserObject)
         {
             var newUser = _usersRepo.CreateNewUser(newUserObject);
             return Ok(newUser);

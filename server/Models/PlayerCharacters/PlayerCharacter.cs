@@ -1,6 +1,6 @@
 ﻿namespace DMInsights.Models.PlayerCharacters
 {
-    public class PlayerCharacters
+    public class PlayerCharacter
     {
         public int Id { get; set; }
         public string Name { get; set; }
