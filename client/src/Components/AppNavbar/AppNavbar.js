@@ -1,19 +1,5 @@
 import React from 'react';
-import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarToggler,
-  MDBCollapse,
-  MDBIcon,
-  // MDBFormInline,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-} from 'mdbreact';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBIcon } from 'mdbreact';
 import { withAuth } from '@okta/okta-react';
 
 import './AppNavbar.scss';
@@ -112,17 +98,6 @@ class AppNavbar extends React.Component {
                 <MDBIcon className="nav-icon" icon="sign-out-alt" size="lg" />
                 Logout
               </MDBNavLink>
-
-              {/* <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                  <span className="mr-2">Profile</span>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu>
-                  <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <hr />
-                  <MDBDropdownItem onClick={this.logoutFunction}>Logout</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown> */}
             </MDBNavItem>
           </MDBNavbarNav>
         );
@@ -137,7 +112,7 @@ class AppNavbar extends React.Component {
     };
 
     return (
-      <MDBNavbar color="unique-color" dark expand="md">
+      <MDBNavbar className="app-navbar" color="unique-color" dark expand="md" fixed="top">
         <MDBNavbarBrand>
           <strong className="white-text">DM InSights</strong>
         </MDBNavbarBrand>

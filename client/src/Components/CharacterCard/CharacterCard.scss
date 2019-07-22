@@ -1,1 +1,48 @@
 @import '../../styles/variables';
+
+.character-card {
+  background-color: $themePrussian;
+  color: $themeGold;
+  margin: 10px;
+  margin-bottom: 25px;
+}
+.character-img {
+  justify-content: center;
+  min-height: 400px;
+  max-height: 400px;
+  max-width: 85%;
+  min-width: 90%;
+  // border: 1px solid $themeGold;
+  display: inline-block !important;
+  border-radius: 10px;
+  // margin: 5px;
+  // width: 100%;
+}
+
+.card-title-row {
+  // justify-content: center;
+}
+
+.character-card-name {
+  // justify-content: left;
+}
+
+.character-card-class {
+  // justify-content: right;
+}
+
+.character-card-stats {
+  color: white !important;
+}
+
+.character-card-separator {
+  border: 1px solid $themeSky;
+}
+
+.character-card-footer {
+  // color: $themeSky !important;
+}
+
+.character-card-footer-text {
+  color: $themeSky !important;
+}

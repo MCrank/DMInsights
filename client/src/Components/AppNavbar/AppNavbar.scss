@@ -1,5 +1,10 @@
 @import '../../styles/variables';
 
+.app-navbar {
+  background-color: $themePrussian !important;
+  text-align: center;
+}
+
 .nav-icon {
   padding-right: 8px;
 }

@@ -3,6 +3,7 @@
     public class PlayerCharacters
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public int HitPoints { get; set; }
         public int ArmorClass { get; set; }
         public string Description { get; set; }
