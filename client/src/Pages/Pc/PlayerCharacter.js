@@ -9,6 +9,7 @@ import './PlayerCharacter.scss';
 class PlayerCharacter extends React.Component {
   state = {
     playerCharacters: [],
+    isLoading: true,
   };
 
   getAccessToken = async () => {
@@ -21,7 +22,11 @@ class PlayerCharacter extends React.Component {
   };
 
   componentDidMount() {
-    this.getPlayerCharacters();
+    this.getPlayerCharacters().then(() => {
+      this.setState({
+        isLoading: false,
+      });
+    });
   }
 
   getPlayerCharacters = async () => {
@@ -39,12 +44,21 @@ class PlayerCharacter extends React.Component {
   };
 
   render() {
-    const { playerCharacters } = this.state;
+    const { playerCharacters, isLoading } = this.state;
 
     const characterCards = (playerCharacters) => playerCharacters.map((character, index) => <CharacterCard key={character.id} character={character} />);
 
     return (
       <div className="PlayerCharacter">
+        {isLoading ? (
+          <MDBContainer className="d-flex justify-content-center pt-3">
+            <div className="spinner-border text-warning" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </MDBContainer>
+        ) : (
+          ''
+        )}
         <MDBContainer className="character-cards-main-container">{characterCards(playerCharacters)}</MDBContainer>
       </div>
     );

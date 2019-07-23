@@ -1,5 +1,18 @@
 @import '../styles/variables';
 
+body,
+html {
+  height: 100%;
+}
+
 .App {
   background-color: $themeBlack;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.app-margin-top {
+  margin-top: 56px;
 }
