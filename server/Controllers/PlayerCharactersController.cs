@@ -51,5 +51,20 @@ namespace DMInsights.Controllers
                 return Ok(newPlayerCharacter);
             }
         }
+
+        [HttpPut]
+        public ActionResult<PlayerCharacter> UpdatePlayerCharacter([FromBody] PlayerCharacter updatedPlayerCharacterObj)
+        {
+            var updatePlayerCharacter = _playerCharactersRepo.UpdatePlayerCharacter(updatedPlayerCharacterObj);
+
+            if (updatePlayerCharacter == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(updatePlayerCharacter);
+            }
+        }
     }
 }

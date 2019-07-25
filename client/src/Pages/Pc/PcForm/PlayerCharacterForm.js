@@ -105,12 +105,17 @@ class PlayerCharacterForm extends React.Component {
   characterDescChange = (event) => this.formFieldStringState('description', event);
 
   characterFormSubmit = async () => {
-    if (this.state.isEditing) {
+    const { character } = this.state;
+    const dbRequest = await this.getDbUserRequestItems();
+    character.ownerId = dbRequest.dbUid;
+
+    if (this.props.location.state.isEditing) {
       console.log('Edit request goes here');
+      playerCharacterRequests.updatePlayerCharacter(dbRequest.accessToken, character).then((resp) => {
+        console.log(resp);
+        this.props.history.push('/characters');
+      });
     } else {
-      const { character } = this.state;
-      const dbRequest = await this.getDbUserRequestItems();
-      character.ownerId = dbRequest.dbUid;
       playerCharacterRequests.createPlayerCharacter(dbRequest.accessToken, character).then((resp) => {
         console.log(resp);
         this.props.history.push('/characters');

@@ -35,4 +35,20 @@ const createPlayerCharacter = (token, playerCharacterObj) =>
       });
   });
 
-export default { getplayerCharactersByUserId, createPlayerCharacter };
+const updatePlayerCharacter = (token, playerCharacterObj) =>
+  new Promise((resolve, reject) => {
+    axios
+      .put(`${dmiApiBaseUrl}/PlayerCharacters`, playerCharacterObj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export default { getplayerCharactersByUserId, createPlayerCharacter, updatePlayerCharacter };

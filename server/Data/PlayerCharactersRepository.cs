@@ -93,5 +93,44 @@ namespace DMInsights.Data
             }
             throw new Exception("Error creating new character");
         }
+
+        public PlayerCharacter UpdatePlayerCharacter(PlayerCharacter playerCharacterObj)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var updatePlayerCharacterQuery = @"
+                        UPDATE 
+	                        [PlayerCharacters]
+                        SET
+	                        [Name] = @name,
+                            [HitPoints] = @hitPoints,
+                            [ArmorClass] = @armorClass,
+                            [Description] = @description,
+                            [ImageUrl] = @imageUrl,
+                            [MoveSpeed] = @moveSpeed,
+                            [OwnerId] = @ownerId,
+                            [CharacterRace] = @characterRace,
+                            [CharacterType] = @characterType,
+                            [PassivePerception] = @passivePerception,
+                            [InitiativeModifier] = @initiativeModifier,
+                            [SpellSaveDC] = @spellSaveDc,
+                            [Classes] = @classes,
+                            [Level] = @level,
+                            [CampaignId] = @campaignId
+                        WHERE Id = @id";
+
+                var rowsAffected = db.Execute(updatePlayerCharacterQuery, playerCharacterObj);
+
+                if (rowsAffected == 1)
+                {
+                    return playerCharacterObj;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            throw new Exception("Could not update player character");
+        }
     }
 }
