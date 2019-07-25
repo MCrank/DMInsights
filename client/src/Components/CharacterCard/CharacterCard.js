@@ -1,8 +1,13 @@
 import React from 'react';
-import { MDBCol, MDBRow, MDBCard, MDBCardImage, MDBCardBody, MDBCardText, MDBCardTitle, MDBCardFooter } from 'mdbreact';
+import { Link } from 'react-router-dom';
+import { MDBCol, MDBRow, MDBCard, MDBCardImage, MDBCardBody, MDBCardText, MDBCardTitle, MDBCardFooter, MDBBtn, MDBIcon } from 'mdbreact';
 import './CharacterCard.scss';
 
 class CharacterCard extends React.Component {
+  // editPc = () => {
+  //   this.props.history.p;
+  // };
+
   render() {
     const { character } = this.props;
     return (
@@ -41,10 +46,22 @@ class CharacterCard extends React.Component {
                     <MDBCardText className="character-card-stats h4-responsive">Hit Points: {character.hitPoints}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
-                <MDBCardFooter className="character-card-footer">
-                  <MDBCardText className="character-card-footer-text">{character.description}</MDBCardText>
-                </MDBCardFooter>
               </MDBCardBody>
+              <MDBCardFooter className="character-card-footer">
+                <MDBCardText className="character-card-footer-text">{character.description}</MDBCardText>
+              </MDBCardFooter>
+              <MDBCardFooter>
+                <MDBRow className="character-card-btn-row">
+                  <Link to={{ pathname: '/playercharacterform', state: { character, isEditing: true } }}>
+                    <MDBBtn className="character-card-btn" outline color="warning" size="sm" onClick={this.editPc}>
+                      Edit <MDBIcon className="character-card-btn-icon" icon="edit" />
+                    </MDBBtn>
+                  </Link>
+                  <MDBBtn className="character-card-btn" outline color="danger" size="sm">
+                    Delete <MDBIcon className="character-card-btn-icon" icon="user-times" />
+                  </MDBBtn>
+                </MDBRow>
+              </MDBCardFooter>
             </MDBCol>
           </MDBRow>
         </MDBCard>

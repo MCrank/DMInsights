@@ -24,7 +24,7 @@ namespace DMInsights.Controllers
 
         // GET: api/PlayerCharacters/5
         [HttpGet("{id}")]
-        public ActionResult<PlayerCharacters> GetPlayerCharactersByUserId(int id)
+        public ActionResult<PlayerCharacter> GetPlayerCharactersByUserId(int id)
         {
             var playerCharacters = _playerCharactersRepo.GetPlayerCharactersByUserId(id);
 
@@ -35,6 +35,20 @@ namespace DMInsights.Controllers
             else
             {
                 return Ok(playerCharacters);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<PlayerCharacter> CreatePlayerCharacter([FromBody] PlayerCharacter newPlayerCharacterObj)
+        {
+            var newPlayerCharacter = _playerCharactersRepo.CreateNewPlayerCharacter(newPlayerCharacterObj);
+            if (newPlayerCharacter == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(newPlayerCharacter);
             }
         }
     }

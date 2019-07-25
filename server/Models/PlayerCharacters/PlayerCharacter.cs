@@ -1,6 +1,6 @@
 ﻿namespace DMInsights.Models.PlayerCharacters
 {
-    public class PlayerCharacters
+    public class PlayerCharacter
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,6 +17,6 @@
         public int SpellSaveDC { get; set; }
         public string Classes { get; set; }
         public int Level { get; set; }
-        public int CampaignId { get; set; }
+        public int? CampaignId { get; set; }
     }
 }

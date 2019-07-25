@@ -18,7 +18,7 @@ namespace DMInsights.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public List<PlayerCharacters> GetPlayerCharactersByUserId( int ownerId)
+        public List<PlayerCharacter> GetPlayerCharactersByUserId( int ownerId)
         {
             using(var db = new SqlConnection(_connectionString))
             {
@@ -27,7 +27,7 @@ namespace DMInsights.Data
                         FROM [PlayerCharacters]
                         WHERE PlayerCharacters.OwnerId = @ownerId";
 
-                var playerCharacters = db.Query<PlayerCharacters>(getPCsQuery, new { ownerId });
+                var playerCharacters = db.Query<PlayerCharacter>(getPCsQuery, new { ownerId });
 
                 if (playerCharacters != null)
                 {
@@ -39,6 +39,59 @@ namespace DMInsights.Data
                 }
             }
             throw new Exception("Error querying Player Characters");
+        }
+
+        public PlayerCharacter CreateNewPlayerCharacter(PlayerCharacter newPlayerCharacterObj)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var newPlayerCharacterQuery = @"
+                        INSERT INTO [PlayerCharacters] (
+                          [Name], [HitPoints], [ArmorClass], [CampaignId], 
+                          [Description], [ImageUrl], [MoveSpeed], 
+                          [OwnerId], [CharacterRace], [CharacterType], 
+                          [PassivePerception], [InitiativeModifier], 
+                          [SpellSaveDC], [Classes], [Level]
+                        ) 
+                        OUTPUT Inserted.*
+                        VALUES 
+                          (
+                            @Name, @HitPoints, @ArmorClass, @CampaignId, 
+                            @Description, @ImageUrl, @MoveSpeed, 
+                            @OwnerId, @CharacterRace, @CharacterType, 
+                            @PassivePerception, @InitiativeModifier, 
+                            @SpellSaveDC, @Classes, @Level
+                          )";
+
+                var newPlayerCharacter = db.QueryFirstOrDefault<PlayerCharacter>(newPlayerCharacterQuery, new
+                {
+                    newPlayerCharacterObj.Name,
+                    newPlayerCharacterObj.HitPoints,
+                    newPlayerCharacterObj.ArmorClass,
+                    newPlayerCharacterObj.CampaignId,
+                    newPlayerCharacterObj.Description,
+                    newPlayerCharacterObj.ImageUrl,
+                    newPlayerCharacterObj.MoveSpeed,
+                    newPlayerCharacterObj.OwnerId,
+                    newPlayerCharacterObj.CharacterRace,
+                    newPlayerCharacterObj.CharacterType,
+                    newPlayerCharacterObj.PassivePerception,
+                    newPlayerCharacterObj.InitiativeModifier,
+                    newPlayerCharacterObj.SpellSaveDC,
+                    newPlayerCharacterObj.Classes,
+                    newPlayerCharacterObj.Level
+                });
+
+                if (newPlayerCharacter != null)
+                {
+                    return newPlayerCharacter;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            throw new Exception("Error creating new character");
         }
     }
 }

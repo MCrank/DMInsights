@@ -1,7 +1,8 @@
 import React from 'react';
-import { MDBContainer } from 'mdbreact';
+import { Link } from 'react-router-dom';
+import { MDBContainer, MDBBtn, MDBIcon } from 'mdbreact';
 import { withAuth } from '@okta/okta-react';
-import playerCharacters from '../../helpers/data/playerCharacterRequests';
+import playerCharacterRequests from '../../helpers/data/playerCharacterRequests';
 import userRequests from '../../helpers/data/userRequests';
 import CharacterCard from '../../Components/CharacterCard/CharacterCard';
 import './PlayerCharacter.scss';
@@ -9,6 +10,7 @@ import './PlayerCharacter.scss';
 class PlayerCharacter extends React.Component {
   state = {
     playerCharacters: [],
+    isLoading: true,
   };
 
   getAccessToken = async () => {
@@ -20,16 +22,30 @@ class PlayerCharacter extends React.Component {
     return user;
   };
 
-  componentDidMount() {
-    this.getPlayerCharacters();
-  }
-
-  getPlayerCharacters = async () => {
+  getDbUserRequestItems = async () => {
     const accessToken = await this.getAccessToken();
     const tokenId = await this.getCurrentUser();
     const dbUid = await userRequests.getUserByTokenId(accessToken, tokenId.user_id);
-    playerCharacters
-      .getplayerCharactersByUserId(dbUid.id, accessToken)
+    let dbRequestObj = {
+      accessToken: accessToken,
+      tokenId: tokenId,
+      dbUid: dbUid.id,
+    };
+    return dbRequestObj;
+  };
+
+  componentDidMount() {
+    this.getPlayerCharacters().then(() => {
+      this.setState({
+        isLoading: false,
+      });
+    });
+  }
+
+  getPlayerCharacters = async () => {
+    const dbRequest = await this.getDbUserRequestItems();
+    playerCharacterRequests
+      .getplayerCharactersByUserId(dbRequest.dbUid, dbRequest.accessToken)
       .then((resp) => {
         this.setState({
           playerCharacters: resp,
@@ -39,12 +55,28 @@ class PlayerCharacter extends React.Component {
   };
 
   render() {
-    const { playerCharacters } = this.state;
+    const { playerCharacters, isLoading } = this.state;
 
     const characterCards = (playerCharacters) => playerCharacters.map((character, index) => <CharacterCard key={character.id} character={character} />);
 
     return (
       <div className="PlayerCharacter">
+        {isLoading ? (
+          <MDBContainer className="d-flex justify-content-center pt-3">
+            <div className="spinner-border text-warning" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </MDBContainer>
+        ) : (
+          ''
+        )}
+        <Link to={{ pathname: '/playercharacterform', state: { isEditing: false } }}>
+          <MDBContainer className="d-flex justify-content-end">
+            <MDBBtn className="character-card-btn" outline color="info">
+              New Character <MDBIcon className="character-card-btn-icon" icon="plus-circle" />
+            </MDBBtn>
+          </MDBContainer>
+        </Link>
         <MDBContainer className="character-cards-main-container">{characterCards(playerCharacters)}</MDBContainer>
       </div>
     );

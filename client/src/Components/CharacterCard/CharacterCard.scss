@@ -46,3 +46,15 @@
 .character-card-footer-text {
   color: $themeSky !important;
 }
+
+.character-card-btn-row {
+  justify-content: flex-end;
+}
+
+.character-card-btn {
+  min-width: 135px;
+}
+
+.character-card-btn-icon {
+  margin-left: 5px;
+}

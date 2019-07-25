@@ -1,0 +1,20 @@
+@import '../../../styles/variables';
+
+.PlayerCharacterForm {
+  padding-top: 25px;
+}
+
+.img-thumbnail {
+  max-height: 75%;
+}
+
+.md-form label {
+  color: $themeSky !important;
+}
+.form-control {
+  color: $themeGold;
+}
+
+.form-control:focus {
+  color: $themeGold;
+}

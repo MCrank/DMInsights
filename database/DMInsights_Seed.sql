@@ -82,7 +82,7 @@ CREATE TABLE [PlayerCharacters]
     [Name] NVARCHAR(255) NOT NULL,
     [HitPoints] INT NOT NULL,
     [ArmorClass] INT NOT NULL,
-    [Description] NVARCHAR(255),
+    [Description] NVARCHAR(500),
     [ImageUrl] NVARCHAR(255),
     [MoveSpeed] INT NOT NULL,
     [OwnerId] INT NOT NULL,
@@ -271,7 +271,7 @@ BEGIN
         ([FirstName], [LastName], [UserName], [IdToken])
     VALUES
         ('Giovanni', 'Moggach', 'Solstice', '0c2a81680b1bf079bd8f3121f19d73c8')
-    
+
     INSERT INTO [dbo].[Users]
         ([FirstName], [LastName], [UserName], [IdToken])
     VALUES
@@ -356,7 +356,7 @@ BEGIN
     INSERT INTO [dbo].[PlayerCharacters]
         ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
     VALUES
-        ('Bazquirk', 49, 16, 'He was a great hero', 'https://gamepedia.cursecdn.com/witcher_gamepedia/9/9f/Tw3_cardart_nilfgaard_vreemde.png?version=9707f7c3165dea9fc2f77df68230395c', 30, 1, 'Human', 'Humanoid', 13, 4, 14, 'Cleric', 8, 1)
+        ('Bazquirk', 49, 16, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://gamepedia.cursecdn.com/witcher_gamepedia/9/9f/Tw3_cardart_nilfgaard_vreemde.png?version=9707f7c3165dea9fc2f77df68230395c', 30, 1, 'Human', 'Humanoid', 13, 4, 14, 'Cleric', 8, 1)
 
     INSERT INTO [dbo].[PlayerCharacters]
         ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])

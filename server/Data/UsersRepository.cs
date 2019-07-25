@@ -57,7 +57,7 @@ namespace DMInsights.Data
             throw new Exception("Error querying for user");
         }
 
-        public User CreateNewUser(CreateUser newUserObj)
+        public User CreateNewUser(UserCreate newUserObj)
         {
             using (var db = new SqlConnection(_connectionString))
             {

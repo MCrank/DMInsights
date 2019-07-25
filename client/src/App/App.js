@@ -5,6 +5,7 @@ import AppNavbar from '../Components/AppNavbar/AppNavbar';
 import Home from '../Pages/Home/Home';
 import Login from '../Components/Auth/Login';
 import PlayerCharacter from '../Pages/Pc/PlayerCharacter';
+import PlayerCharacterForm from '../Pages/Pc/PcForm/PlayerCharacterForm';
 import NonPlayerCharacter from '../Pages/Npc/NonPlayerCharacter';
 import Campaign from '../Pages/Campaign/Campaign';
 import About from '../Pages/About/About';
@@ -24,6 +25,7 @@ class App extends React.Component {
             <Route path="/" exact={true} component={Home} />
             <Route path="/login" render={() => <Login baseUrl="https://dev-531773.okta.com" />} />
             <SecureRoute path="/characters" component={PlayerCharacter} />
+            <SecureRoute path="/playercharacterform" component={PlayerCharacterForm} />
             <SecureRoute path="/npcs" component={NonPlayerCharacter} />
             <SecureRoute path="/campaigns" component={Campaign} />
             <SecureRoute path="/about" component={About} />
