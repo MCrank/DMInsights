@@ -1,12 +1,28 @@
 import React from 'react';
+import { withAuth } from '@okta/okta-react';
+import playerCharacterRequests from '../../helpers/data/playerCharacterRequests';
 import { Link } from 'react-router-dom';
 import { MDBCol, MDBRow, MDBCard, MDBCardImage, MDBCardBody, MDBCardText, MDBCardTitle, MDBCardFooter, MDBBtn, MDBIcon } from 'mdbreact';
 import './CharacterCard.scss';
 
 class CharacterCard extends React.Component {
-  // editPc = () => {
-  //   this.props.history.p;
-  // };
+  getAccessToken = async () => {
+    return await this.props.auth.getAccessToken();
+  };
+
+  deletePlayerCharacter = async () => {
+    const accessToken = await this.getAccessToken();
+    const characterId = this.props.character.id;
+    const { getPlayerCharacters } = this.props;
+    await playerCharacterRequests.deletePlayerCharacter(accessToken, characterId).then((resp) => {
+      console.log('Delete Status', resp);
+      if (resp.status === 204) {
+        getPlayerCharacters();
+      } else {
+        console.error('There was an error deleting the character, please try again later');
+      }
+    });
+  };
 
   render() {
     const { character } = this.props;
@@ -57,7 +73,7 @@ class CharacterCard extends React.Component {
                       Edit <MDBIcon className="character-card-btn-icon" icon="edit" />
                     </MDBBtn>
                   </Link>
-                  <MDBBtn className="character-card-btn" outline color="danger" size="sm">
+                  <MDBBtn className="character-card-btn" outline color="danger" size="sm" onClick={this.deletePlayerCharacter}>
                     Delete <MDBIcon className="character-card-btn-icon" icon="user-times" />
                   </MDBBtn>
                 </MDBRow>
@@ -72,4 +88,4 @@ class CharacterCard extends React.Component {
   }
 }
 
-export default CharacterCard;
+export default withAuth(CharacterCard);

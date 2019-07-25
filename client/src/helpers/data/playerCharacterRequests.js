@@ -51,4 +51,20 @@ const updatePlayerCharacter = (token, playerCharacterObj) =>
       });
   });
 
-export default { getplayerCharactersByUserId, createPlayerCharacter, updatePlayerCharacter };
+const deletePlayerCharacter = (token, id) =>
+  new Promise((resolve, reject) => {
+    axios
+      .delete(`${dmiApiBaseUrl}/PlayerCharacters/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export default { getplayerCharactersByUserId, createPlayerCharacter, updatePlayerCharacter, deletePlayerCharacter };
