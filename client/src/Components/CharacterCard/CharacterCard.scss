@@ -1,5 +1,9 @@
 @import '../../styles/variables';
 
+.character-card-main-col {
+  padding-bottom: 1px;
+}
+
 .character-card {
   background-color: $themePrussian;
   color: $themeGold;
@@ -57,4 +61,16 @@
 
 .character-card-btn-icon {
   margin-left: 5px;
+}
+
+.modal-content {
+  background-color: $themeBlack;
+  color: white;
+}
+
+.close {
+  color: white;
+  :hover {
+    color: $themeGold;
+  }
 }
