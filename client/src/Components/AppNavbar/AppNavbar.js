@@ -105,7 +105,9 @@ class AppNavbar extends React.Component {
       return (
         <MDBNavbarNav right>
           <MDBNavItem active>
-            <MDBNavLink to="/login">Login</MDBNavLink>
+            <MDBNavLink className="app-nav-login" to="/login">
+              Login
+            </MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
       );

@@ -57,7 +57,6 @@ class PlayerCharacterForm extends React.Component {
           character: this.props.location.state.character,
         });
       }
-      console.log(this.props.location.state.character);
     }
   }
 
@@ -103,6 +102,10 @@ class PlayerCharacterForm extends React.Component {
   characterTypeChange = (event) => this.formFieldStringState('characterType', event);
 
   characterDescChange = (event) => this.formFieldStringState('description', event);
+
+  previousPage = () => {
+    this.props.history.goBack();
+  };
 
   characterFormSubmit = async () => {
     const { character } = this.state;
@@ -204,6 +207,9 @@ class PlayerCharacterForm extends React.Component {
             </MDBRow>
             <MDBCol>
               <MDBRow className="justify-content-around">
+                <MDBBtn className="character-card-btn" outline color="info" onClick={this.previousPage}>
+                  Go Back <MDBIcon className="character-card-btn-icon" fas icon="arrow-circle-left" size="lg" />
+                </MDBBtn>
                 <MDBBtn className="character-card-btn" outline color="info" onClick={this.characterFormSubmit}>
                   Save <MDBIcon className="character-card-btn-icon" far icon="save" size="lg" />
                 </MDBBtn>

@@ -18,9 +18,9 @@ namespace DMInsights.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public List<PlayerCharacter> GetPlayerCharactersByUserId( int ownerId)
+        public List<PlayerCharacter> GetPlayerCharactersByUserId(int ownerId)
         {
-            using(var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var getPCsQuery = @"
                         Select *
@@ -43,7 +43,7 @@ namespace DMInsights.Data
 
         public PlayerCharacter CreateNewPlayerCharacter(PlayerCharacter newPlayerCharacterObj)
         {
-            using(var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var newPlayerCharacterQuery = @"
                         INSERT INTO [PlayerCharacters] (
@@ -96,7 +96,7 @@ namespace DMInsights.Data
 
         public PlayerCharacter UpdatePlayerCharacter(PlayerCharacter playerCharacterObj)
         {
-            using(var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var updatePlayerCharacterQuery = @"
                         UPDATE 
@@ -131,6 +131,30 @@ namespace DMInsights.Data
                 }
             }
             throw new Exception("Could not update player character");
+        }
+
+        public bool DeletePlayerCharacter(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var deletePlayerCharacterQuery = @"
+                        DELETE
+                        FROM 
+	                        [PlayerCharacters]
+                        WHERE id = @id";
+
+                var rowsAffected = db.Execute(deletePlayerCharacterQuery, new { id });
+
+                if (rowsAffected != 1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            throw new Exception("Could not delete the Player Character");
         }
     }
 }

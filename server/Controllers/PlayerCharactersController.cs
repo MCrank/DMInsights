@@ -66,5 +66,20 @@ namespace DMInsights.Controllers
                 return Ok(updatePlayerCharacter);
             }
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeletePlayerCharacter(int id)
+        {
+            var deletedPlayerCharacter = _playerCharactersRepo.DeletePlayerCharacter(id);
+
+            if (deletedPlayerCharacter)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return StatusCode(500, "Error deleteing object");
+            }
+        }
     }
 }
