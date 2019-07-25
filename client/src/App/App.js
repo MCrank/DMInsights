@@ -22,7 +22,6 @@ class App extends React.Component {
         <div className="App">
           <Security issuer={oktaConfig.issuer} redirect_uri={oktaConfig.redirect_uri} client_id={oktaConfig.client_id} onAuthRequired={oktaConfig.onAuthRequired}>
             <AppNavbar />
-            <div className="app-margin-top" />
             <Route path="/" exact={true} component={Home} />
             <Route path="/login" render={() => <Login baseUrl="https://dev-531773.okta.com" />} />
             <SecureRoute path="/characters" component={PlayerCharacter} />

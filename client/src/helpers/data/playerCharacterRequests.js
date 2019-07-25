@@ -19,4 +19,20 @@ const getplayerCharactersByUserId = (uid, token) =>
       });
   });
 
-export default { getplayerCharactersByUserId };
+const createPlayerCharacter = (token, playerCharacterObj) =>
+  new Promise((resolve, reject) => {
+    axios
+      .post(`${dmiApiBaseUrl}/PlayerCharacters`, playerCharacterObj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export default { getplayerCharactersByUserId, createPlayerCharacter };

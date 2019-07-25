@@ -1,7 +1,18 @@
+@import '../../styles/variables';
+
+.SignInWidget {
+  height: calc(100vh - 56px);
+}
+
 .okta-sign-in-header {
   padding: 15px 50px !important;
 }
 
 .auth-org-logo {
-  max-height: 80px !important;
+  max-height: 60px !important;
+}
+
+#okta-sign-in {
+  // padding-top: 100px;
+  margin: 56px auto 8px;
 }

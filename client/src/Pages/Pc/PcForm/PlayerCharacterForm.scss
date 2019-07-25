@@ -5,11 +5,11 @@
 }
 
 .img-thumbnail {
-  height: auto;
+  max-height: 75%;
 }
 
 .md-form label {
-  color: $themeSky;
+  color: $themeSky !important;
 }
 .form-control {
   color: $themeGold;

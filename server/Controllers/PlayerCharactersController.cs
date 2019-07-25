@@ -39,7 +39,7 @@ namespace DMInsights.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PlayerCharacterCreate> CreatePlayerCharacter([FromBody] PlayerCharacterCreate newPlayerCharacterObj)
+        public ActionResult<PlayerCharacter> CreatePlayerCharacter([FromBody] PlayerCharacter newPlayerCharacterObj)
         {
             var newPlayerCharacter = _playerCharactersRepo.CreateNewPlayerCharacter(newPlayerCharacterObj);
             if (newPlayerCharacter == null)

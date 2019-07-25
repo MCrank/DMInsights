@@ -41,7 +41,7 @@ namespace DMInsights.Data
             throw new Exception("Error querying Player Characters");
         }
 
-        public PlayerCharacter CreateNewPlayerCharacter(PlayerCharacterCreate newPlayerCharacterObj)
+        public PlayerCharacter CreateNewPlayerCharacter(PlayerCharacter newPlayerCharacterObj)
         {
             using(var db = new SqlConnection(_connectionString))
             {
@@ -53,6 +53,7 @@ namespace DMInsights.Data
                           [PassivePerception], [InitiativeModifier], 
                           [SpellSaveDC], [Classes], [Level]
                         ) 
+                        OUTPUT Inserted.*
                         VALUES 
                           (
                             @Name, @HitPoints, @ArmorClass, @CampaignId, 

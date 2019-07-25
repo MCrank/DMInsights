@@ -21,6 +21,6 @@ namespace DMInsights.Models.PlayerCharacters
         public int SpellSaveDC { get; set; }
         public string Classes { get; set; }
         public int Level { get; set; }
-        public int CampaignId { get; set; }
+        public int? CampaignId { get; set; }
     }
 }
