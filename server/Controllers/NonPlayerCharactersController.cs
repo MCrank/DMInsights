@@ -46,5 +46,17 @@ namespace DMInsights.Controllers
             }
             return Ok(nonPlayerCharacters);
         }
+
+        [HttpPost]
+        public ActionResult<NonPlayerCharacter> CreateNpc(NonPlayerCharacter newNpcObj)
+        {
+            var newNpc = _nonPlayerCharactersRepo.CreateNPC(newNpcObj);
+
+            if (newNpc == null)
+            {
+                BadRequest();
+            }
+            return newNpc;
+        }
     }
 }

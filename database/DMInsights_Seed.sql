@@ -454,27 +454,27 @@ BEGIN
     INSERT INTO [dbo].[NonPlayerCharacters]
         ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        ('Orc', 24, 13, 'Scary Monster', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Lizard_Man_%28D%26D%29.JPG', 30, 2, NULL, 'Beast', 10, 0, NULL, 0.5)
+        ('Orc', 24, 13, 'Scary Monster', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Lizard_Man_%28D%26D%29.JPG', 30, 2, '', 'Beast', 10, 0, NULL, 0.5)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
         ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        ('Mind Flayer', 287, 16, 'Brains', 'https://upload.wikimedia.org/wikipedia/en/1/13/Illithid_Sorcerer.png', 30, 1, NULL, 'Humanoid', 16, 2, 16, 1.5)
+        ('Mind Flayer', 287, 16, 'Brains', 'https://upload.wikimedia.org/wikipedia/en/1/13/Illithid_Sorcerer.png', 30, 1, '', 'Humanoid', 16, 2, 16, 1.5)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
         ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        ('Kobold', 13, 12, 'Cannon Fodder', 'http://fang.wdfiles.com/local--files/tod-sessions/kobold_dagger.png', 30, 1, NULL, 'Beast', 10, -1, NULL, 0.25)
+        ('Kobold', 13, 12, 'Cannon Fodder', 'http://fang.wdfiles.com/local--files/tod-sessions/kobold_dagger.png', 30, 1, '', 'Beast', 10, -1, NULL, 0.25)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
         ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        ('Tiamat', 578, 20, 'Mother of Dragons', 'http://eberronunlimited.wdfiles.com/local--files/tiamat/Tiamat.jpg', 30, 3, NULL, 'Dragon', 19, 7, 20, 11)
+        ('Tiamat', 578, 20, 'Mother of Dragons', 'http://eberronunlimited.wdfiles.com/local--files/tiamat/Tiamat.jpg', 30, 3, '', 'Dragon', 19, 7, 20, 11)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
         ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        ('Gelatinous Cube', 125, 12, 'Sure is clean around here', 'http://nerdreactor.com/wp-content/uploads/2013/04/Gelatinous-Cube.jpg', 25, 2, NULL, 'Construct', 8, 0, NULL, 2.75)
+        ('Gelatinous Cube', 125, 12, 'Sure is clean around here', 'http://nerdreactor.com/wp-content/uploads/2013/04/Gelatinous-Cube.jpg', 25, 2, '', 'Construct', 8, 0, NULL, 2.75)
 END
 
 -- Encounters
