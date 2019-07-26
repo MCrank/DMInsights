@@ -108,6 +108,10 @@ class NonPlayerCharacter extends React.Component {
 
     if (this.props.location.state.isEditing) {
       console.log('Edit Request Goes here');
+      nonPlayerCharacterRequests.updateNonPlayerCharacter(dbRequest.accessToken, npc).then((resp) => {
+        console.log(resp);
+        this.props.history.push('/npcs');
+      });
     } else {
       nonPlayerCharacterRequests.createNonPlayerCharacter(dbRequest.accessToken, npc).then((resp) => {
         this.props.history.push('/npcs');
