@@ -100,6 +100,7 @@ CREATE TABLE [PlayerCharacters]
 CREATE TABLE [NonPlayerCharacters]
 (
     [Id] INT IDENTITY(1, 1) NOT NULL,
+    [Name] nvarchar(255) NOT NULL,
     [HitPoints] INT NOT NULL,
     [ArmorClass] INT NOT NULL,
     [Description] NVARCHAR(255) ,
@@ -451,29 +452,29 @@ END
 BEGIN
     USE [DMInsights]
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        (24, 13, 'Scary Monster', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Lizard_Man_%28D%26D%29.JPG', 30, 2, NULL, 'Beast', 10, 0, NULL, 0.5)
+        ('Orc', 24, 13, 'Scary Monster', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Lizard_Man_%28D%26D%29.JPG', 30, 2, NULL, 'Beast', 10, 0, NULL, 0.5)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        (287, 16, 'Brains', 'https://upload.wikimedia.org/wikipedia/en/1/13/Illithid_Sorcerer.png', 30, 1, NULL, 'Humanoid', 16, 2, 16, 1.5)
+        ('Mind Flayer', 287, 16, 'Brains', 'https://upload.wikimedia.org/wikipedia/en/1/13/Illithid_Sorcerer.png', 30, 1, NULL, 'Humanoid', 16, 2, 16, 1.5)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        (13, 12, 'Cannon Fodder', 'http://fang.wdfiles.com/local--files/tod-sessions/kobold_dagger.png', 30, 1, NULL, 'Beast', 10, -1, NULL, 0.25)
+        ('Kobold', 13, 12, 'Cannon Fodder', 'http://fang.wdfiles.com/local--files/tod-sessions/kobold_dagger.png', 30, 1, NULL, 'Beast', 10, -1, NULL, 0.25)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        (578, 20, 'Mother of Dragons', 'http://eberronunlimited.wdfiles.com/local--files/tiamat/Tiamat.jpg', 30, 3, NULL, 'Dragon', 19, 7, 20, 11)
+        ('Tiamat', 578, 20, 'Mother of Dragons', 'http://eberronunlimited.wdfiles.com/local--files/tiamat/Tiamat.jpg', 30, 3, NULL, 'Dragon', 19, 7, 20, 11)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
     VALUES
-        (125, 12, 'Sure is clean around here', 'http://nerdreactor.com/wp-content/uploads/2013/04/Gelatinous-Cube.jpg', 25, 2, NULL, 'Construct', 8, 0, NULL, 2.75)
+        ('Gelatinous Cube', 125, 12, 'Sure is clean around here', 'http://nerdreactor.com/wp-content/uploads/2013/04/Gelatinous-Cube.jpg', 25, 2, NULL, 'Construct', 8, 0, NULL, 2.75)
 END
 
 -- Encounters

@@ -7,6 +7,7 @@ import Login from '../Components/Auth/Login';
 import PlayerCharacter from '../Pages/Pc/PlayerCharacter';
 import PlayerCharacterForm from '../Pages/Pc/PcForm/PlayerCharacterForm';
 import NonPlayerCharacter from '../Pages/Npc/NonPlayerCharacter';
+import NonPlayerCharacterForm from '../Pages/Npc/NpcForm/NonPlayerCharacterForm';
 import Campaign from '../Pages/Campaign/Campaign';
 import About from '../Pages/About/About';
 import apiKeys from '../helpers/apiKeys';
@@ -27,6 +28,7 @@ class App extends React.Component {
             <SecureRoute path="/characters" component={PlayerCharacter} />
             <SecureRoute path="/playercharacterform" component={PlayerCharacterForm} />
             <SecureRoute path="/npcs" component={NonPlayerCharacter} />
+            <SecureRoute path="/npcform" component={NonPlayerCharacterForm} />
             <SecureRoute path="/campaigns" component={Campaign} />
             <SecureRoute path="/about" component={About} />
             <Route path="/implicit/callback" component={ImplicitCallback} />
