@@ -113,14 +113,12 @@ class PlayerCharacterForm extends React.Component {
     character.ownerId = dbRequest.dbUid;
 
     if (this.props.location.state.isEditing) {
-      console.log('Edit request goes here');
       playerCharacterRequests.updatePlayerCharacter(dbRequest.accessToken, character).then((resp) => {
         console.log(resp);
         this.props.history.push('/characters');
       });
     } else {
       playerCharacterRequests.createPlayerCharacter(dbRequest.accessToken, character).then((resp) => {
-        console.log(resp);
         this.props.history.push('/characters');
       });
     }

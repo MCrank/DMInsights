@@ -80,10 +80,11 @@ class NpcCard extends React.Component {
                     <MDBCol className="col-md-4">
                       <MDBCardTitle className="character-card-name h3-responsive">{npc.name}</MDBCardTitle>
                     </MDBCol>
-                    <MDBCol className="col-md-8">
-                      <MDBCardTitle className="character-card-class h3-responsive">
-                        CR: {npc.challengeRating} Type: {npc.characterType}
-                      </MDBCardTitle>
+                    <MDBCol className="col-md-4">
+                      <MDBCardTitle className="character-card-class h3-responsive">CR: {npc.challengeRating}</MDBCardTitle>
+                    </MDBCol>
+                    <MDBCol className="col-md-4">
+                      <MDBCardTitle className="npc-card-type h3-responsive">Type: {npc.characterType}</MDBCardTitle>
                     </MDBCol>
                   </MDBRow>
                   <hr className="character-card-separator" />

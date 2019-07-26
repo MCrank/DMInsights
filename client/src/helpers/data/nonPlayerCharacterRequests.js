@@ -19,4 +19,20 @@ const getNonPlayerCharactersByUserId = (token, uid) =>
       });
   });
 
-export default { getNonPlayerCharactersByUserId };
+const createNonPlayerCharacter = (token, npcObj) =>
+  new Promise((resolve, reject) => {
+    axios
+      .post(`${dmiApiBaseUrl}/NonPlayerCharacters`, npcObj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp);
+      })
+      .then((error) => {
+        reject(error);
+      });
+  });
+
+export default { getNonPlayerCharactersByUserId, createNonPlayerCharacter };
