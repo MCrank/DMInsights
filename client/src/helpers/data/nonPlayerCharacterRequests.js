@@ -35,4 +35,20 @@ const createNonPlayerCharacter = (token, npcObj) =>
       });
   });
 
-export default { getNonPlayerCharactersByUserId, createNonPlayerCharacter };
+const updateNonPlayerCharacter = (token, npcObj) =>
+  new Promise((resolve, reject) => {
+    axios
+      .put(`${dmiApiBaseUrl}/NonPlayerCharacters`, npcObj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export default { getNonPlayerCharactersByUserId, createNonPlayerCharacter, updateNonPlayerCharacter };

@@ -16,5 +16,6 @@
         public int InitiativeModifier { get; set; }
         public int SpellSaveDC { get; set; }
         public decimal ChallengeRating { get; set; }
+        public int? CampaignId { get; set; }
     }
 }

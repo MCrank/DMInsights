@@ -113,6 +113,7 @@ CREATE TABLE [NonPlayerCharacters]
     [InitiativeModifier] INT ,
     [SpellSaveDC] INT ,
     [ChallengeRating] DECIMAL(5,3) NOT NULL,
+    [CampaignId] INT,
     CONSTRAINT [PK_NonPlayerCharacters] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 
@@ -195,6 +196,11 @@ ALTER TABLE [NonPlayerCharacters]
     WITH CHECK ADD CONSTRAINT [FK_NonPlayerCharacters_OwnerId] FOREIGN KEY ([OwnerId]) REFERENCES [Users]([Id])
 
 ALTER TABLE [NonPlayerCharacters] CHECK CONSTRAINT [FK_NonPlayerCharacters_OwnerId]
+
+ALTER TABLE [NonPlayerCharacters]
+    WITH CHECK ADD CONSTRAINT [FK_NonPlayerCharacters_CampaignId] FOREIGN KEY ([CampaignId]) REFERENCES [Campaigns]([Id])
+
+ALTER TABLE [NonPlayerCharacters] CHECK CONSTRAINT [FK_NonPlayerCharacters_CampaignId]
 
 ALTER TABLE [GameSessions]
     WITH CHECK ADD CONSTRAINT [FK_GameSessions_CampaignId] FOREIGN KEY ([CampaignId]) REFERENCES [Campaigns]([Id])

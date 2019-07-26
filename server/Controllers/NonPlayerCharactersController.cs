@@ -58,5 +58,21 @@ namespace DMInsights.Controllers
             }
             return newNpc;
         }
+
+        [HttpPut]
+        public ActionResult<NonPlayerCharacter> UpdateNonPlayerCharacter([FromBody] NonPlayerCharacter npcObj)
+        {
+            if (npcObj.CampaignId == 0)
+            {
+                npcObj.CampaignId = null;
+            }
+            var updateNpc = _nonPlayerCharactersRepo.UpdateNonPlayerCharacter(npcObj);
+
+            if (updateNpc == null)
+            {
+                return BadRequest();
+            }
+            return Ok(updateNpc);
+        }
     }
 }

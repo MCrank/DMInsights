@@ -99,5 +99,40 @@ namespace DMInsights.Data
                 return newNpc;
             }
         }
+
+        public NonPlayerCharacter UpdateNonPlayerCharacter(NonPlayerCharacter npcObj)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var updateNpcCharacterQuery = @"
+                        UPDATE 
+	                        [NonPlayerCharacters]
+                        SET
+	                        [Name] = @name,
+                            [HitPoints] = @hitPoints,
+                            [ArmorClass] = @armorClass,
+                            [Description] = @description,
+                            [ImageUrl] = @imageUrl,
+                            [MoveSpeed] = @moveSpeed,
+                            [OwnerId] = @ownerId,
+                            [CharacterRace] = @characterRace,
+                            [CharacterType] = @characterType,
+                            [PassivePerception] = @passivePerception,
+                            [InitiativeModifier] = @initiativeModifier,
+                            [SpellSaveDC] = @spellSaveDc,
+                            [ChallengeRating] = @challengeRating,
+                            [CampaignId] = @campaignId
+                        WHERE Id = @id";
+
+                var rowsAffected = db.Execute(updateNpcCharacterQuery, npcObj);
+
+                if (rowsAffected != 1)
+                {
+                    return null;
+                }
+                return npcObj;
+            }
+            throw new Exception("Could not update the NPC");
+        }
     }
 }
