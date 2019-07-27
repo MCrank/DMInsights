@@ -78,7 +78,7 @@ namespace DMInsights.Controllers
             }
             else
             {
-                return StatusCode(500, "Error deleteing object");
+                return StatusCode(500, "Error deleting object");
             }
         }
     }

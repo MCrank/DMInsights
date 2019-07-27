@@ -24,7 +24,8 @@ namespace DMInsights.Data
                 var getNpcSqlQuery = @"
                         SELECT *
                         FROM [NonPlayerCharacters]
-                        WHERE NonPlayerCharacters.OwnerId = @ownerId";
+                        WHERE NonPlayerCharacters.OwnerId = @ownerId
+                        AND NonPlayerCharacters.IsDeleted = 0";
 
                 var nonPlayerCharacters = db.Query<NonPlayerCharacter>(getNpcSqlQuery, new { ownerId });
 
@@ -133,6 +134,29 @@ namespace DMInsights.Data
                 return npcObj;
             }
             throw new Exception("Could not update the NPC");
+        }
+
+        public bool DeleteNpc(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var deleteNpcQuery = @"
+                        UPDATE
+                            [NonPlayerCharacters]
+                        SET
+                            [IsDeleted] = 1
+                        WHERE 
+                            id = @id";
+
+                var rowsAffected = db.Execute(deleteNpcQuery, new { id });
+
+                if (rowsAffected != 1)
+                {
+                    return false;
+                }
+                return true;
+            }
+            throw new Exception("Could not delete the Non Player Character");
         }
     }
 }

@@ -18,5 +18,6 @@
         public string Classes { get; set; }
         public int Level { get; set; }
         public int? CampaignId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
