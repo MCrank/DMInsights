@@ -25,7 +25,8 @@ namespace DMInsights.Data
                 var getPCsQuery = @"
                         Select *
                         FROM [PlayerCharacters]
-                        WHERE PlayerCharacters.OwnerId = @ownerId";
+                        WHERE PlayerCharacters.OwnerId = @ownerId
+                        AND PlayerCharacters.IsDeleted = 0";
 
                 var playerCharacters = db.Query<PlayerCharacter>(getPCsQuery, new { ownerId });
 
@@ -138,10 +139,12 @@ namespace DMInsights.Data
             using (var db = new SqlConnection(_connectionString))
             {
                 var deletePlayerCharacterQuery = @"
-                        DELETE
-                        FROM 
+                        UPDATE
 	                        [PlayerCharacters]
-                        WHERE id = @id";
+                        SET
+                            [IsDeleted] = 1
+                        WHERE
+                            id = @id";
 
                 var rowsAffected = db.Execute(deletePlayerCharacterQuery, new { id });
 

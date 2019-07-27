@@ -42,6 +42,7 @@ class CharacterCard extends React.Component {
     const { getPlayerCharacters } = this.props;
     await playerCharacterRequests.deletePlayerCharacter(accessToken, characterId).then((resp) => {
       if (resp.status === 204) {
+        this.modalToggle();
         getPlayerCharacters();
       } else {
         console.error('There was an error deleting the character, please try again later');

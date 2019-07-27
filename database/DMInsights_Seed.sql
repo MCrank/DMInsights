@@ -94,6 +94,7 @@ CREATE TABLE [PlayerCharacters]
     [Classes] NVARCHAR(255) NOT NULL,
     [Level] INT NOT NULL,
     [CampaignId] INT,
+    [IsDeleted] BIT NOT NULL
     CONSTRAINT [PK_PlayerCharacters] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 
@@ -114,6 +115,7 @@ CREATE TABLE [NonPlayerCharacters]
     [SpellSaveDC] INT ,
     [ChallengeRating] DECIMAL(5,3) NOT NULL,
     [CampaignId] INT,
+    [IsDeleted] BIT NOT NULL
     CONSTRAINT [PK_NonPlayerCharacters] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 
@@ -361,34 +363,34 @@ BEGIN
     USE [DMInsights]
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId], [IsDeleted])
     VALUES
-        ('Bazquirk', 49, 16, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://gamepedia.cursecdn.com/witcher_gamepedia/9/9f/Tw3_cardart_nilfgaard_vreemde.png?version=9707f7c3165dea9fc2f77df68230395c', 30, 1, 'Human', 'Humanoid', 13, 4, 14, 'Cleric', 8, 1)
+        ('Bazquirk', 49, 16, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'https://gamepedia.cursecdn.com/witcher_gamepedia/9/9f/Tw3_cardart_nilfgaard_vreemde.png?version=9707f7c3165dea9fc2f77df68230395c', 30, 1, 'Human', 'Humanoid', 13, 4, 14, 'Cleric', 8, 1, 0)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId], [IsDeleted])
     VALUES
-        ('Foobar', 124, 18, 'You''re my boy Blue!', 'https://wiki.rpg.net/images/6/64/Vagha_Blue_Dragonborn.jpg', 30, 4, 'Dragon Born', 'Dragon', 13, 4, 16, 'Paladin', 12, 2)
+        ('Foobar', 124, 18, 'You''re my boy Blue!', 'https://wiki.rpg.net/images/6/64/Vagha_Blue_Dragonborn.jpg', 30, 4, 'Dragon Born', 'Dragon', 13, 4, 16, 'Paladin', 12, 2, 0)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId], [IsDeleted])
     VALUES
-        ('Bisquick', 21, 13, 'Fire slinger', 'https://upload.wikimedia.org/wikipedia/en/0/09/Minsc.jpg', 30, 3, 'Human', 'Humanoid', 12, 1, 15, 'Wizard', 2, 3)
+        ('Bisquick', 21, 13, 'Fire slinger', 'https://upload.wikimedia.org/wikipedia/en/0/09/Minsc.jpg', 30, 3, 'Human', 'Humanoid', 12, 1, 15, 'Wizard', 2, 3, 0)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId], [IsDeleted])
     VALUES
-        ('FizzBazz', 52, 17, 'Short and Stour', 'http://lrpc.wdfiles.com/local--files/dwarf/F%20Hill%20Dwarf.png', 25, 3, 'Dwarf', 'Humanoid', 11, 3, NULL, 'Fighter', 8, 4)
+        ('FizzBazz', 52, 17, 'Short and Stour', 'http://lrpc.wdfiles.com/local--files/dwarf/F%20Hill%20Dwarf.png', 25, 3, 'Dwarf', 'Humanoid', 11, 3, NULL, 'Fighter', 8, 4, 0)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId], [IsDeleted])
     VALUES
-        ('Furry', 67, 19, 'He was a great hero', 'https://i.stack.imgur.com/bp4Ysm.jpg', 55, 1, 'Half-Elf', 'Humanoid', 16, 5, 16, 'Monk', 10, NULL)
+        ('Furry', 67, 19, 'He was a great hero', 'https://i.stack.imgur.com/bp4Ysm.jpg', 55, 1, 'Half-Elf', 'Humanoid', 16, 5, 16, 'Monk', 10, NULL, 0)
 
     INSERT INTO [dbo].[PlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [Classes], [Level], [CampaignId], [IsDeleted])
     VALUES
-        ('Beeyatch', 75, 15, 'Sorceress', 'https://gamepedia.cursecdn.com/witcher_gamepedia/c/c3/Tw3_cardart_northernrealms_keira.png', 30, 4, 'Human', 'Humanoid', 11, 1, 17, 'Sorcerer', 12, 4)
+        ('Beeyatch', 75, 15, 'Sorceress', 'https://gamepedia.cursecdn.com/witcher_gamepedia/c/c3/Tw3_cardart_northernrealms_keira.png', 30, 4, 'Human', 'Humanoid', 11, 1, 17, 'Sorcerer', 12, 4, 0)
 END
 
 -- GameSessions
@@ -458,29 +460,29 @@ END
 BEGIN
     USE [DMInsights]
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating], [IsDeleted])
     VALUES
-        ('Orc', 24, 13, 'Scary Monster', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Lizard_Man_%28D%26D%29.JPG', 30, 2, '', 'Beast', 10, 0, NULL, 0.5)
+        ('Orc', 24, 13, 'Scary Monster', 'https://upload.wikimedia.org/wikipedia/en/5/5e/Lizard_Man_%28D%26D%29.JPG', 30, 2, '', 'Beast', 10, 0, NULL, 0.5, 0)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating], [IsDeleted])
     VALUES
-        ('Mind Flayer', 287, 16, 'Brains', 'https://upload.wikimedia.org/wikipedia/en/1/13/Illithid_Sorcerer.png', 30, 1, '', 'Humanoid', 16, 2, 16, 1.5)
+        ('Mind Flayer', 287, 16, 'Brains', 'https://upload.wikimedia.org/wikipedia/en/1/13/Illithid_Sorcerer.png', 30, 1, '', 'Humanoid', 16, 2, 16, 1.5, 0)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating], [IsDeleted])
     VALUES
-        ('Kobold', 13, 12, 'Cannon Fodder', 'http://fang.wdfiles.com/local--files/tod-sessions/kobold_dagger.png', 30, 1, '', 'Beast', 10, -1, NULL, 0.25)
+        ('Kobold', 13, 12, 'Cannon Fodder', 'http://fang.wdfiles.com/local--files/tod-sessions/kobold_dagger.png', 30, 1, '', 'Beast', 10, -1, NULL, 0.25, 0)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating], [IsDeleted])
     VALUES
-        ('Tiamat', 578, 20, 'Mother of Dragons', 'http://eberronunlimited.wdfiles.com/local--files/tiamat/Tiamat.jpg', 30, 3, '', 'Dragon', 19, 7, 20, 11)
+        ('Tiamat', 578, 20, 'Mother of Dragons', 'http://eberronunlimited.wdfiles.com/local--files/tiamat/Tiamat.jpg', 30, 3, '', 'Dragon', 19, 7, 20, 11, 0)
 
     INSERT INTO [dbo].[NonPlayerCharacters]
-        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating])
+        ([Name], [HitPoints], [ArmorClass], [Description], [ImageUrl], [MoveSpeed], [OwnerId], [CharacterRace], [CharacterType], [PassivePerception], [InitiativeModifier], [SpellSaveDC], [ChallengeRating], [IsDeleted])
     VALUES
-        ('Gelatinous Cube', 125, 12, 'Sure is clean around here', 'http://nerdreactor.com/wp-content/uploads/2013/04/Gelatinous-Cube.jpg', 25, 2, '', 'Construct', 8, 0, NULL, 2.75)
+        ('Gelatinous Cube', 125, 12, 'Sure is clean around here', 'http://nerdreactor.com/wp-content/uploads/2013/04/Gelatinous-Cube.jpg', 25, 2, '', 'Construct', 8, 0, NULL, 2.75, 0)
 END
 
 -- Encounters

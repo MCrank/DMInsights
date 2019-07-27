@@ -51,4 +51,20 @@ const updateNonPlayerCharacter = (token, npcObj) =>
       });
   });
 
-export default { getNonPlayerCharactersByUserId, createNonPlayerCharacter, updateNonPlayerCharacter };
+const deleteNonPlayerCharacter = (token, id) =>
+  new Promise((resolve, reject) => {
+    axios
+      .delete(`${dmiApiBaseUrl}/NonPlayerCharacters/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export default { getNonPlayerCharactersByUserId, createNonPlayerCharacter, updateNonPlayerCharacter, deleteNonPlayerCharacter };

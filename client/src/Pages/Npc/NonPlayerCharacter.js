@@ -7,7 +7,7 @@ import nonPlayerCharacterRequests from '../../helpers/data/nonPlayerCharacterReq
 import NpcCard from '../../Components/NpcCards/NpcCard';
 import './NonPlayerCharacter.scss';
 
-class NonPLayerCharacter extends React.Component {
+class NonPlayerCharacter extends React.Component {
   state = {
     npcs: [],
     isLoading: true,
@@ -35,28 +35,34 @@ class NonPLayerCharacter extends React.Component {
   };
 
   componentDidMount() {
-    this.getNonPlayerCHaracters().then(() => {
+    this.getNonPlayerCharacters().then(() => {
       this.setState({
         isLoading: false,
       });
     });
   }
 
-  getNonPlayerCHaracters = async () => {
+  getNonPlayerCharacters = async () => {
     const dbRequest = await this.getDbUserRequestItems();
-    const response = await nonPlayerCharacterRequests.getNonPlayerCharactersByUserId(dbRequest.accessToken, dbRequest.dbUid);
-    this.setState({
-      npcs: response,
-    });
+    nonPlayerCharacterRequests
+      .getNonPlayerCharactersByUserId(dbRequest.accessToken, dbRequest.dbUid)
+      .then((resp) => {
+        this.setState({
+          npcs: resp,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   render() {
     const { npcs, isLoading } = this.state;
 
-    const npcCards = (npcs) => npcs.map((npc, index) => <NpcCard key={npc.id} npc={npc} />);
+    const npcCards = (npcs) => npcs.map((npc, index) => <NpcCard key={npc.id} npc={npc} getNonPlayerCharacters={this.getNonPlayerCharacters} />);
 
     return (
-      <div className="NonPLayerCharacter">
+      <div className="NonPlayerCharacter">
         {isLoading ? (
           <MDBContainer className="d-flex justify-content-center pt-3">
             <div className="spinner-border text-warning" role="status">
@@ -79,4 +85,4 @@ class NonPLayerCharacter extends React.Component {
   }
 }
 
-export default withAuth(NonPLayerCharacter);
+export default withAuth(NonPlayerCharacter);

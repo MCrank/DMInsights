@@ -74,5 +74,20 @@ namespace DMInsights.Controllers
             }
             return Ok(updateNpc);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteNonPlayerCharacter(int id)
+        {
+            var deletedNonPlayerCharacter = _nonPlayerCharactersRepo.DeleteNpc(id);
+
+            if (deletedNonPlayerCharacter)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return StatusCode(500, "Error deleting NPC");
+            }
+        }
     }
 }

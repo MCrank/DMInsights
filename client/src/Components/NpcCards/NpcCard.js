@@ -37,17 +37,18 @@ class NpcCard extends React.Component {
     return await this.props.auth.getAccessToken();
   };
 
-  deletePlayerCharacter = async () => {
-    // const accessToken = await this.getAccessToken();
-    // const characterId = this.props.npc.id;
-    // const { getPlayerCharacters } = this.props;
-    // await nonPlayerCharacterRequests.deletePlayerCharacter(accessToken, characterId).then((resp) => {
-    //   if (resp.status === 204) {
-    //     getPlayerCharacters();
-    //   } else {
-    //     console.error('There was an error deleting the character, please try again later');
-    //   }
-    // });
+  deleteNonPlayerCharacter = async () => {
+    const accessToken = await this.getAccessToken();
+    const npcId = this.props.npc.id;
+    const { getNonPlayerCharacters } = this.props;
+    await nonPlayerCharacterRequests.deleteNonPlayerCharacter(accessToken, npcId).then((resp) => {
+      if (resp.status === 204) {
+        this.modalToggle();
+        getNonPlayerCharacters();
+      } else {
+        console.error('There was an error deleting the character, please try again later');
+      }
+    });
   };
 
   render() {
@@ -62,7 +63,7 @@ class NpcCard extends React.Component {
               <MDBBtn outline color="success" onClick={this.modalToggle} size="sm">
                 Cancel
               </MDBBtn>
-              <MDBBtn outline color="danger" onClick={this.deletePlayerCharacter} size="sm">
+              <MDBBtn outline color="danger" onClick={this.deleteNonPlayerCharacter} size="sm">
                 Delete
               </MDBBtn>
             </MDBModalFooter>

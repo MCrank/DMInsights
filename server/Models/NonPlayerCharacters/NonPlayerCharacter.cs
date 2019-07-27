@@ -17,5 +17,6 @@
         public int SpellSaveDC { get; set; }
         public decimal ChallengeRating { get; set; }
         public int? CampaignId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
