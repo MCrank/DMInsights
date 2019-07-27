@@ -65,6 +65,7 @@ CREATE TABLE [Campaigns]
     [Id] INT IDENTITY(1, 1) NOT NULL,
     [Title] NVARCHAR(255) NOT NULL,
     [Description] NVARCHAR(255) NOT NULL,
+    [ImageUrl] NVARCHAR(255),
     [ConnectionID] UNIQUEIDENTIFIER NOT NULL,
     [OwnerId] INT NOT NULL,
     CONSTRAINT [PK_Campaigns] PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -293,24 +294,24 @@ BEGIN
     USE [DMInsights]
 
     INSERT INTO [dbo].[Campaigns]
-        ([Title], [Description], [ConnectionID], [OwnerId])
+        ([Title], [Description], [ImageUrl], [ConnectionID], [OwnerId])
     VALUES
-        ('Curse of Strahd', 'Vampire slaying at it''s best', '262cdab8-6f69-493e-bf71-5da5fb8063f9', 2)
+        ('Curse of Strahd', 'Vampire slaying at it''s best', 'https://wellmetblog.files.wordpress.com/2016/10/curse_of_strahd_wallpaper_gallery_thumb.jpg?w=816', '262cdab8-6f69-493e-bf71-5da5fb8063f9', 2)
 
     INSERT INTO [dbo].[Campaigns]
-        ([Title], [Description], [ConnectionID], [OwnerId])
+        ([Title], [Description], [ImageUrl], [ConnectionID], [OwnerId])
     VALUES
-        ('Tomb of Annihilation', 'Yo dawg, I heard you like traps', 'c4238c70-b74c-44a2-953a-93dd0e5cd3f5', 1)
+        ('Tomb of Annihilation', 'Yo dawg, I heard you like traps', 'https://4.bp.blogspot.com/-EVKCmcepH5E/WWBFQ5sy0MI/AAAAAAAAMoI/94Yalf6kkpUgFXft1SCI49kI7a7aAAzmgCLcBGAs/s1600/tombofannihillogo.jpg', 'c4238c70-b74c-44a2-953a-93dd0e5cd3f5', 4)
 
     INSERT INTO [dbo].[Campaigns]
-        ([Title], [Description], [ConnectionID], [OwnerId])
+        ([Title], [Description], [ImageUrl], [ConnectionID], [OwnerId])
     VALUES
-        ('Horde of the Dragon Queen', 'Cultists, Why''d it have to be cultists', 'd08697e2-e57c-48fd-ab78-04d8ba0bb753', 2)
+        ('Horde of the Dragon Queen', 'Cultists, Why''d it have to be cultists', 'https://nerdvanamedia.com/wp-content/uploads/2014/08/hotdq5efeat.jpg', 'd08697e2-e57c-48fd-ab78-04d8ba0bb753', 2)
 
     INSERT INTO [dbo].[Campaigns]
-        ([Title], [Description], [ConnectionID], [OwnerId])
+        ([Title], [Description], [ImageUrl], [ConnectionID], [OwnerId])
     VALUES
-        ('Storm Kings Thunder', 'Dragons and Giants, YIKES!', 'f4722b0f-023f-4488-937b-627420b30d16', 3)
+        ('Storm Kings Thunder', 'Dragons and Giants, YIKES!', 'http://geekandsundry.com/wp-content/uploads/2016/07/StormKingsThunder_header.jpg', 'f4722b0f-023f-4488-937b-627420b30d16', 3)
 END
 
 -- CampaignsUsers
@@ -356,6 +357,16 @@ BEGIN
         ([UserId], [CampaignId])
     VALUES
         (1, 3)
+
+    INSERT INTO [dbo].[CampaignsUsers]
+        ([UserId], [CampaignId])
+    VALUES
+        (4, 1)
+
+    INSERT INTO [dbo].[CampaignsUsers]
+        ([UserId], [CampaignId])
+    VALUES
+        (4, 2)
 END
 
 -- Player Characters

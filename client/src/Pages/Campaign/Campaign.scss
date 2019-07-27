@@ -1,1 +1,13 @@
 @import '../../styles/variables';
+
+.Campaign {
+  color: white;
+}
+
+.campaign-info-title {
+  text-align: center;
+}
+
+.campaign-card-col {
+  border-right: 1px solid $themeGold;
+}
