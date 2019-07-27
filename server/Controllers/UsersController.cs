@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DMInsights.Data;
-using DMInsights.Models;
+﻿using DMInsights.Data;
 using DMInsights.Models.Users;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DMInsights.Controllers
@@ -15,10 +9,12 @@ namespace DMInsights.Controllers
     public class UsersController : SecureControllerBase
     {
         readonly UsersRepository _usersRepo;
+        readonly CampaignsRepository _campaignsRepo;
 
-        public UsersController(UsersRepository userRepo)
+        public UsersController(UsersRepository userRepo, CampaignsRepository campaignsRepo)
         {
             _usersRepo = userRepo;
+            _campaignsRepo = campaignsRepo;
         }
 
         // GET: api/Users
@@ -49,6 +45,18 @@ namespace DMInsights.Controllers
                 return Ok(user);
             }
             //return Ok(user);
+        }
+
+        [HttpGet("{id}/campaigns")]
+        public ActionResult GetUserCampaigns(int id)
+        {
+            var myCampaigns = _campaignsRepo.GetMyCampaigns(id);
+
+            if (myCampaigns == null)
+            {
+                return NotFound();
+            }
+            return Ok(myCampaigns);
         }
 
         // POST: api/Users
