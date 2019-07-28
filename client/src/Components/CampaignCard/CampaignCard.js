@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MDBCard, MDBBtn, MDBCardBody, MDBCardImage, MDBCardText, MDBCardTitle, MDBRow } from 'mdbreact';
 import { withAuth } from '@okta/okta-react';
 import './CampaignCard.scss';
 
 class CampaignCard extends React.Component {
   render() {
-    const { campaign } = this.props;
+    const { campaign, userDbId } = this.props;
 
     return (
       <div className="CampaignCard">
@@ -22,14 +23,20 @@ class CampaignCard extends React.Component {
                 Campaign Stats
               </MDBBtn>
             </MDBRow>
-            <MDBRow around>
-              <MDBBtn className="campaign-card-button" outline color="warning">
-                Edit
-              </MDBBtn>
-              <MDBBtn className="campaign-card-button" outline color="danger">
-                Delete
-              </MDBBtn>
-            </MDBRow>
+            {userDbId === campaign.ownerId ? (
+              <MDBRow around>
+                <Link to={{ pathname: '/campaignform', state: { campaign, isEditing: true } }}>
+                  <MDBBtn className="campaign-card-button" outline color="warning">
+                    Edit
+                  </MDBBtn>
+                </Link>
+                <MDBBtn className="campaign-card-button" outline color="danger">
+                  Delete
+                </MDBBtn>
+              </MDBRow>
+            ) : (
+              ''
+            )}
           </MDBCardBody>
         </MDBCard>
       </div>

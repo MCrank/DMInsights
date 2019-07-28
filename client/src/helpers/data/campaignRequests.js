@@ -35,4 +35,20 @@ const createCampaign = (token, newCampaign) =>
       });
   });
 
-export default { getUserCampaigns, createCampaign };
+const updateCampaign = (token, updatedCampaign) =>
+  new Promise((resolve, reject) => {
+    axios
+      .put(`${dmiApiBaseUrl}/campaigns`, updatedCampaign, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export default { getUserCampaigns, createCampaign, updateCampaign };
