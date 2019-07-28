@@ -1,5 +1,20 @@
 @import '../../styles/variables';
 
+.campaign-card {
+  border: 1px solid $themeSky;
+}
 .campaign-card-title {
-  color: $themeBlack;
+  color: $themeWhite;
+}
+
+.campaign-card-button {
+  min-width: 175px;
+}
+
+.campaign-card-body {
+  background-color: $themeBlack;
+}
+
+.campaign-card-text {
+  color: $themeGold !important;
 }

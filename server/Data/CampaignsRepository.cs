@@ -32,7 +32,9 @@ namespace DMInsights.Data
                         JOIN
                             [Campaigns] c ON c.Id = cu.CampaignId
                         WHERE 
-                            u.id = @id";
+                            u.id = @id
+                        AND
+                            c.IsDeleted = 0";
 
                 var myCampaigns = db.Query<Campaign>(myCampaignsSqlQuery, new { id });
 
@@ -42,6 +44,45 @@ namespace DMInsights.Data
                 }
                 return myCampaigns.ToList();
             }
+        }
+
+        public Campaign CreateCampaign(Campaign campaignObj)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var createCampaignQuery = @"
+                    INSERT INTO [Campaigns](
+                        [Title],
+                        [Description],
+                        [ImageUrl],
+                        [ConnectionID],
+                        [OwnerId],
+                        [IsDeleted])
+                    OUTPUT Inserted.*
+                    VALUES(
+                        @Title,
+                        @Description,
+                        @ImageUrl,
+                        NEWID(),
+                        @OwnerId,
+                        @IsDeleted)";
+
+                var newCampaign = db.QueryFirstOrDefault<Campaign>(createCampaignQuery, new
+                {
+                    campaignObj.Title,
+                    campaignObj.Description,
+                    campaignObj.ImageUrl,
+                    campaignObj.OwnerId,
+                    campaignObj.IsDeleted
+                });
+
+                if (newCampaign == null)
+                {
+                    return null;
+                }
+                return newCampaign;
+            }
+            throw new Exception("Could not create new campaign");
         }
 
     }

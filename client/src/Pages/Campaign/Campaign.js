@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import userRequests from '../../helpers/data/userRequests';
 import campaignRequests from '../../helpers/data/campaignRequests';
 
@@ -70,6 +71,13 @@ class Campaign extends React.Component {
         <MDBContainer fluid>
           <MDBRow>
             <MDBCol className="campaign-card-col" md="6" sm="12" lg="3">
+              <MDBRow around>
+                <Link to={{ pathname: '/campaignform', state: { isEditing: false } }}>
+                  <MDBBtn className="campaign-card-button" outline color="primary">
+                    Create Campaign
+                  </MDBBtn>
+                </Link>
+              </MDBRow>
               {campaignCards(myCampaigns)}
             </MDBCol>
             <MDBCol md="6" sm="12" lg="9">
