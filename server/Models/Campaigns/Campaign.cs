@@ -13,5 +13,6 @@ namespace DMInsights.Models.Campaigns
         public string ImageUrl { get; set; }
         public Guid ConnectionId { get; set; }
         public int OwnerId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -50,7 +50,6 @@ class PlayerCharacterForm extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     if (this.props.location.state !== undefined) {
       if (this.props.location.state.isEditing) {
         this.setState({

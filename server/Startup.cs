@@ -50,6 +50,7 @@ namespace DMInsights
             services.AddTransient<PlayerCharactersRepository>();
             services.AddTransient<NonPlayerCharactersRepository>();
             services.AddTransient<CampaignsRepository>();
+            services.AddTransient<CampaignsUsersRepository>();
 
             services.AddSingleton<IConfiguration>(Configuration);
         }

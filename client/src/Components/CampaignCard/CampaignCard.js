@@ -9,17 +9,25 @@ class CampaignCard extends React.Component {
 
     return (
       <div className="CampaignCard">
-        <MDBCard className="mx-auto my-4">
+        <MDBCard className="mx-auto my-4 campaign-card">
           <MDBCardImage className="img-fluid" src={campaign.imageUrl} waves />
-          <MDBCardBody>
+          <MDBCardBody className="campaign-card-body">
             <MDBCardTitle className="campaign-card-title">{campaign.title}</MDBCardTitle>
-            <MDBCardText>{campaign.description}</MDBCardText>
+            <MDBCardText className="campaign-card-text">{campaign.description}</MDBCardText>
             <MDBRow around>
-              <MDBBtn outline color="secondary">
+              <MDBBtn className="campaign-card-button" outline color="secondary">
                 Live Campaign
               </MDBBtn>
-              <MDBBtn outline color="info">
+              <MDBBtn className="campaign-card-button" outline color="info">
                 Campaign Stats
+              </MDBBtn>
+            </MDBRow>
+            <MDBRow around>
+              <MDBBtn className="campaign-card-button" outline color="warning">
+                Edit
+              </MDBBtn>
+              <MDBBtn className="campaign-card-button" outline color="danger">
+                Delete
               </MDBBtn>
             </MDBRow>
           </MDBCardBody>

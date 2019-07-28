@@ -10,4 +10,12 @@
 
 .campaign-card-col {
   border-right: 1px solid $themeGold;
+  max-height: 100vh;
+  overflow: auto;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.campaign-card-col::-webkit-scrollbar {
+  width: 0 !important;
 }
