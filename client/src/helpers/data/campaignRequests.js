@@ -44,6 +44,22 @@ const updateCampaign = (token, updatedCampaign) =>
         },
       })
       .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+const deleteCampaign = (token, campaignId) =>
+  new Promise((resolve, reject) => {
+    axios
+      .delete(`${dmiApiBaseUrl}/campaigns/${campaignId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
         resolve(resp);
       })
       .catch((error) => {
@@ -51,4 +67,4 @@ const updateCampaign = (token, updatedCampaign) =>
       });
   });
 
-export default { getUserCampaigns, createCampaign, updateCampaign };
+export default { getUserCampaigns, createCampaign, updateCampaign, deleteCampaign };

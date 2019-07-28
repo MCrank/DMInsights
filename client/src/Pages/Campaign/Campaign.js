@@ -57,7 +57,8 @@ class Campaign extends React.Component {
   render() {
     const { myCampaigns, isLoading, userDbId } = this.state;
 
-    const campaignCards = (myCampaigns) => myCampaigns.map((campaign, index) => <CampaignCard key={campaign.id} campaign={campaign} userDbId={userDbId} />);
+    const campaignCards = (myCampaigns) =>
+      myCampaigns.map((campaign, index) => <CampaignCard key={campaign.id} campaign={campaign} getCampaigns={this.getMyCampaigns} userDbId={userDbId} />);
 
     return (
       <div className="Campaign">

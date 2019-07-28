@@ -20,7 +20,7 @@ namespace DMInsights.Data
 
         public List<Campaign> GetMyCampaigns(int id)
         {
-            using(var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var myCampaignsSqlQuery = @"
                         SELECT 
@@ -87,7 +87,7 @@ namespace DMInsights.Data
 
         public Campaign UpdateCampaign(Campaign campaignObj)
         {
-            using(var db = new SqlConnection(_connectionString))
+            using (var db = new SqlConnection(_connectionString))
             {
                 var updateCampaignQuery = @"
                         UPDATE
@@ -108,6 +108,32 @@ namespace DMInsights.Data
                 return campaignObj;
             }
             throw new Exception("Could not update the campaign");
+        }
+
+        public bool DeleteCampaign(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var deleteCampignQuery = @"
+                        UPDATE
+                            [Campaigns]
+                        SET
+                            [IsDeleted] = 1
+                        WHERE
+                            id = @id";
+
+                var rowsAffected = db.Execute(deleteCampignQuery, new { id });
+
+                if (rowsAffected != 1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            throw new Exception("Could not delete your campaign");
         }
 
     }
