@@ -12,6 +12,7 @@ class Campaign extends React.Component {
   state = {
     myCampaigns: [],
     isLoading: true,
+    userDbId: -1,
   };
 
   getAccessToken = async () => {
@@ -48,14 +49,15 @@ class Campaign extends React.Component {
     campaignRequests.getUserCampaigns(dbRequest.accessToken, dbRequest.dbUid).then((resp) => {
       this.setState({
         myCampaigns: resp,
+        userDbId: dbRequest.dbUid,
       });
     });
   };
 
   render() {
-    const { myCampaigns, isLoading } = this.state;
+    const { myCampaigns, isLoading, userDbId } = this.state;
 
-    const campaignCards = (myCampaigns) => myCampaigns.map((campaign, index) => <CampaignCard key={campaign.id} campaign={campaign} />);
+    const campaignCards = (myCampaigns) => myCampaigns.map((campaign, index) => <CampaignCard key={campaign.id} campaign={campaign} userDbId={userDbId} />);
 
     return (
       <div className="Campaign">

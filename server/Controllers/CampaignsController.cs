@@ -42,5 +42,17 @@ namespace DMInsights.Controllers
             }
             return newCampaign;
         }
+
+        [HttpPut]
+        public ActionResult<Campaign> UpdateCampaign([FromBody] Campaign updatedCampaignObj)
+        {
+            var updatedCampaign = _campaignsRepo.UpdateCampaign(updatedCampaignObj);
+
+            if (updatedCampaign == null)
+            {
+                return BadRequest();
+            }
+            return Ok(updatedCampaign);
+        }
     }
 }

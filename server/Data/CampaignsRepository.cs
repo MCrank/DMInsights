@@ -85,5 +85,30 @@ namespace DMInsights.Data
             throw new Exception("Could not create new campaign");
         }
 
+        public Campaign UpdateCampaign(Campaign campaignObj)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var updateCampaignQuery = @"
+                        UPDATE
+                            [Campaigns]
+                        SET
+                            [Title] = @Title,
+                            [Description] = @Description,
+                            [ImageUrl] = @ImageUrl
+                        WHERE
+                            Id = @id";
+
+                var rowsAffected = db.Execute(updateCampaignQuery, campaignObj);
+
+                if (rowsAffected != 1)
+                {
+                    return null; ;
+                }
+                return campaignObj;
+            }
+            throw new Exception("Could not update the campaign");
+        }
+
     }
 }

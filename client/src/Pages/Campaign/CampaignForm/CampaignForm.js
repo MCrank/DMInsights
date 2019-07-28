@@ -72,7 +72,12 @@ class CampaignForm extends React.Component {
     campaign.ownerId = dbRequestObj.dbUid;
 
     if (this.props.location.state.isEditing) {
-      console.log('Edit goes here');
+      campaignRequests
+        .updateCampaign(dbRequestObj.accessToken, campaign)
+        .then((resp) => {
+          this.props.history.push('/campaigns');
+        })
+        .catch((error) => console.error('There was a problem updating your campaign', error));
     } else {
       campaignRequests
         .createCampaign(dbRequestObj.accessToken, campaign)
