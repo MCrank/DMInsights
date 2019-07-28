@@ -54,5 +54,17 @@ namespace DMInsights.Controllers
             }
             return Ok(updatedCampaign);
         }
+
+        [HttpDelete("{id}")]
+            public ActionResult DeleteCampaign(int id)
+        {
+            var deletedCampaign = _campaignsRepo.DeleteCampaign(id);
+
+            if (!deletedCampaign)
+            {
+                return StatusCode(500, "Error deleting campaign");
+            }
+            return NoContent();
+        }
     }
 }
