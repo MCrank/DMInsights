@@ -58,7 +58,9 @@ class PlayerCharacter extends React.Component {
     const { playerCharacters, isLoading } = this.state;
 
     const characterCards = (playerCharacters) =>
-      playerCharacters.map((character, index) => <CharacterCard key={character.id} character={character} getPlayerCharacters={this.getPlayerCharacters} />);
+      playerCharacters.map((character, index) => (
+        <CharacterCard key={character.id} character={character} getPlayerCharacters={this.getPlayerCharacters} />
+      ));
 
     return (
       <div className="PlayerCharacter">

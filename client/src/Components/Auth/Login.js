@@ -41,7 +41,11 @@ class Login extends React.Component {
     if (this.state.isAuthed === null) {
       return null;
     }
-    return this.state.isAuthed ? <Redirect to={{ pathname: '/' }} /> : <SignInWidget baseUrl={this.props.baseUrl} onSuccess={this.onSuccess} onError={this.onError} />;
+    return this.state.isAuthed ? (
+      <Redirect to={{ pathname: '/' }} />
+    ) : (
+      <SignInWidget baseUrl={this.props.baseUrl} onSuccess={this.onSuccess} onError={this.onError} />
+    );
   }
 }
 

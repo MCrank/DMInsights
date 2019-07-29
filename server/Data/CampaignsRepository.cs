@@ -1,5 +1,8 @@
 ﻿using Dapper;
 using DMInsights.Models.Campaigns;
+using DMInsights.Models.Encounters;
+using DMInsights.Models.GameSessions;
+using DMInsights.Models.PlayerCharacters;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -134,6 +137,69 @@ namespace DMInsights.Data
                 }
             }
             throw new Exception("Could not delete your campaign");
+        }
+
+        public List<PlayerCharacter> GetCampaignPcs(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var campaignPcsQuery = @"
+                        SELECT pc.id, pc.Name, pc.[Level], pc.CharacterRace, pc.Classes, pc.HitPoints
+                        FROM [PlayerCharacters] pc
+                        JOIN [Campaigns] c ON c.id = pc.CampaignId
+                        WHERE c.Id = @id";
+
+                var campaignPcs = db.Query<PlayerCharacter>(campaignPcsQuery, new { id });
+
+                if (campaignPcs == null)
+                {
+                    return null;
+                }
+                return campaignPcs.ToList();
+            }
+            throw new Exception("Could not get list of Players in teh campaign");
+        }
+
+        public List<GameSession> GetCampaignSessions(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var campaignsSessionsQuery = @"
+                    SELECT gs.Title, gs.[Description], gs.DateCreated, gs.Id
+                    FROM [GameSessions] gs
+                    JOIN [Campaigns] c ON c.Id = gs.CampaignId
+                    WHERE c.Id = @id";
+
+                var campaignSessions = db.Query<GameSession>(campaignsSessionsQuery, new { id });
+
+                if (campaignSessions == null)
+                {
+                    return null;
+                }
+                return campaignSessions.ToList();
+            }
+            throw new Exception("Could not get list of Players in teh campaign");
+        }
+
+        public List<Encounter> GetCampaignEncounters(int id)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var campaignEncounterQuery = @"
+                        SELECT e.Id, e.DateCreated
+                        FROM [Encounters] e
+                        JOIN [GameSessions] gs ON gs.Id = e.GameSessionId
+                        WHERE gs.id = @id";
+
+                var campaignEncounters = db.Query<Encounter>(campaignEncounterQuery, new { id });
+
+                if (campaignEncounters == null)
+                {
+                    return null;
+                }
+                return campaignEncounters.ToList();
+            }
+            throw new Exception("Could not get a list of encounters");
         }
 
     }

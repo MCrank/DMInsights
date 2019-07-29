@@ -67,4 +67,9 @@ const deleteNonPlayerCharacter = (token, id) =>
       });
   });
 
-export default { getNonPlayerCharactersByUserId, createNonPlayerCharacter, updateNonPlayerCharacter, deleteNonPlayerCharacter };
+export default {
+  getNonPlayerCharactersByUserId,
+  createNonPlayerCharacter,
+  updateNonPlayerCharacter,
+  deleteNonPlayerCharacter,
+};

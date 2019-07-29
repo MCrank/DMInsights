@@ -22,7 +22,12 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <Security issuer={oktaConfig.issuer} redirect_uri={oktaConfig.redirect_uri} client_id={oktaConfig.client_id} onAuthRequired={oktaConfig.onAuthRequired}>
+          <Security
+            issuer={oktaConfig.issuer}
+            redirect_uri={oktaConfig.redirect_uri}
+            client_id={oktaConfig.client_id}
+            onAuthRequired={oktaConfig.onAuthRequired}
+          >
             <AppNavbar />
             <Route path="/" exact={true} component={Home} />
             <Route path="/login" render={() => <Login baseUrl="https://dev-531773.okta.com" />} />

@@ -135,10 +135,24 @@ class NonPlayerCharacter extends React.Component {
                 <MDBInput label="Race" icon="dna" size="lg" value={npc.characterRace} onChange={this.npcRaceChange} />
               </MDBCol>
               <MDBCol md="3">
-                <MDBInput label="Type" icon="fingerprint" size="lg" value={npc.characterType} onChange={this.npcTypeChange} />
+                <MDBInput
+                  label="Type"
+                  icon="fingerprint"
+                  size="lg"
+                  value={npc.characterType}
+                  onChange={this.npcTypeChange}
+                />
               </MDBCol>
               <MDBCol md="2">
-                <MDBInput type="number" label="CR" icon="sort-amount-up" size="lg" step=".25" value={npc.challengeRating} onChange={this.npcCrChange} />
+                <MDBInput
+                  type="number"
+                  label="CR"
+                  icon="sort-amount-up"
+                  size="lg"
+                  step=".25"
+                  value={npc.challengeRating}
+                  onChange={this.npcCrChange}
+                />
               </MDBCol>
             </MDBRow>
             <MDBRow>
@@ -156,18 +170,46 @@ class NonPlayerCharacter extends React.Component {
                 </MDBRow> */}
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput type="number" label="Armor Class" icon="shield-alt" size="lg" value={npc.armorClass} onChange={this.npcACChange} />
+                    <MDBInput
+                      type="number"
+                      label="Armor Class"
+                      icon="shield-alt"
+                      size="lg"
+                      value={npc.armorClass}
+                      onChange={this.npcACChange}
+                    />
                   </MDBCol>
                   <MDBCol>
-                    <MDBInput type="number" label="Spell Save DC" icon="magic" size="lg" value={npc.spellSaveDC} onChange={this.npcSpellDCChange} />
+                    <MDBInput
+                      type="number"
+                      label="Spell Save DC"
+                      icon="magic"
+                      size="lg"
+                      value={npc.spellSaveDC}
+                      onChange={this.npcSpellDCChange}
+                    />
                   </MDBCol>
                   <MDBCol>
-                    <MDBInput type="number" label="Initiative Modifier" icon="hourglass-start" size="lg" value={npc.initiativeModifier} onChange={this.npcInitModChange} />
+                    <MDBInput
+                      type="number"
+                      label="Initiative Modifier"
+                      icon="hourglass-start"
+                      size="lg"
+                      value={npc.initiativeModifier}
+                      onChange={this.npcInitModChange}
+                    />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput type="number" label="Hit Points" icon="heart" size="lg" value={npc.hitPoints} onChange={this.npcHPChange} />
+                    <MDBInput
+                      type="number"
+                      label="Hit Points"
+                      icon="heart"
+                      size="lg"
+                      value={npc.hitPoints}
+                      onChange={this.npcHPChange}
+                    />
                   </MDBCol>
                   <MDBCol>
                     <MDBInput
@@ -180,17 +222,37 @@ class NonPlayerCharacter extends React.Component {
                     />
                   </MDBCol>
                   <MDBCol>
-                    <MDBInput type="number" label="Movement Speed" icon="running" size="lg" value={npc.moveSpeed} onChange={this.npcMoveSpeedChange} />
+                    <MDBInput
+                      type="number"
+                      label="Movement Speed"
+                      icon="running"
+                      size="lg"
+                      value={npc.moveSpeed}
+                      onChange={this.npcMoveSpeedChange}
+                    />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput label="Description" icon="portrait" size="lg" type="textarea" value={npc.description} onChange={this.npcDescChange} />
+                    <MDBInput
+                      label="Description"
+                      icon="portrait"
+                      size="lg"
+                      type="textarea"
+                      value={npc.description}
+                      onChange={this.npcDescChange}
+                    />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput label="Image URL" icon="image" size="lg" value={npc.imageUrl} onChange={this.npcImageChange} />
+                    <MDBInput
+                      label="Image URL"
+                      icon="image"
+                      size="lg"
+                      value={npc.imageUrl}
+                      onChange={this.npcImageChange}
+                    />
                   </MDBCol>
                 </MDBRow>
               </MDBCol>

@@ -100,9 +100,27 @@ class CampaignForm extends React.Component {
               <img src={campaign.imageUrl} className="img-thumbnail" alt="" />
             </MDBCol>
             <MDBCol>
-              <MDBInput label="Title" icon="atlas" size="lg" value={campaign.title} onChange={this.campaignTitleChange} />
-              <MDBInput label="Description" icon="dungeon" size="lg" value={campaign.description} onChange={this.campaignDescriptionChange} />
-              <MDBInput label="Image URL" icon="image" size="lg" value={campaign.imageUrl} onChange={this.campaignImageUrlChange} />
+              <MDBInput
+                label="Title"
+                icon="atlas"
+                size="lg"
+                value={campaign.title}
+                onChange={this.campaignTitleChange}
+              />
+              <MDBInput
+                label="Description"
+                icon="dungeon"
+                size="lg"
+                value={campaign.description}
+                onChange={this.campaignDescriptionChange}
+              />
+              <MDBInput
+                label="Image URL"
+                icon="image"
+                size="lg"
+                value={campaign.imageUrl}
+                onChange={this.campaignImageUrlChange}
+              />
               <MDBRow className="justify-content-around">
                 <MDBBtn className="character-card-btn" outline color="info" onClick={this.previousPage}>
                   Go Back <MDBIcon className="character-card-btn-icon" fas="true" icon="arrow-circle-left" size="lg" />

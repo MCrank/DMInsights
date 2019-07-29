@@ -59,7 +59,8 @@ class NonPlayerCharacter extends React.Component {
   render() {
     const { npcs, isLoading } = this.state;
 
-    const npcCards = (npcs) => npcs.map((npc, index) => <NpcCard key={npc.id} npc={npc} getNonPlayerCharacters={this.getNonPlayerCharacters} />);
+    const npcCards = (npcs) =>
+      npcs.map((npc, index) => <NpcCard key={npc.id} npc={npc} getNonPlayerCharacters={this.getNonPlayerCharacters} />);
 
     return (
       <div className="NonPlayerCharacter">
