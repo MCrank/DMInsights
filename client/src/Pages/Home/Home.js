@@ -76,7 +76,9 @@ class Home extends React.Component {
     newUserObj.FirstName = userAttr.dmi_firstName;
     newUserObj.LastName = userAttr.dmi_lastName;
     newUserObj.idToken = userAttr.sub;
-    userAttr.dmi_userName !== undefined ? (newUserObj.UserName = userAttr.dmi_userName) : (newUserObj.UserName = userAttr.preferred_username);
+    userAttr.dmi_userName !== undefined
+      ? (newUserObj.UserName = userAttr.dmi_userName)
+      : (newUserObj.UserName = userAttr.preferred_username);
 
     userRequests
       .createNewUser(token, newUserObj)

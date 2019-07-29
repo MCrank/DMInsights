@@ -89,16 +89,32 @@ class CharacterCard extends React.Component {
                   <hr className="character-card-separator" />
                   <MDBRow start>
                     <MDBCol className="col-md-6">
-                      <MDBCardText className="character-card-stats h4-responsive">Hit Points: {character.hitPoints}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Armor Class: {character.armorClass}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Move Speed: {character.moveSpeed}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Passive Perception: {character.passivePerception}</MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Hit Points: {character.hitPoints}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Armor Class: {character.armorClass}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Move Speed: {character.moveSpeed}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Passive Perception: {character.passivePerception}
+                      </MDBCardText>
                     </MDBCol>
                     <MDBCol className="col-md-6">
-                      <MDBCardText className="character-card-stats h4-responsive">Initiative Modifier: {character.initiativeModifier}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Spell Save DC: {character.spellSaveDC}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Hit Points: {character.hitPoints}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Hit Points: {character.hitPoints}</MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Initiative Modifier: {character.initiativeModifier}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Spell Save DC: {character.spellSaveDC}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Hit Points: {character.hitPoints}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Hit Points: {character.hitPoints}
+                      </MDBCardText>
                     </MDBCol>
                   </MDBRow>
                 </MDBCardBody>

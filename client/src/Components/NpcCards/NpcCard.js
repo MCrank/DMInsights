@@ -82,7 +82,9 @@ class NpcCard extends React.Component {
                       <MDBCardTitle className="character-card-name h3-responsive">{npc.name}</MDBCardTitle>
                     </MDBCol>
                     <MDBCol className="col-md-4">
-                      <MDBCardTitle className="character-card-class h3-responsive">CR: {npc.challengeRating}</MDBCardTitle>
+                      <MDBCardTitle className="character-card-class h3-responsive">
+                        CR: {npc.challengeRating}
+                      </MDBCardTitle>
                     </MDBCol>
                     <MDBCol className="col-md-4">
                       <MDBCardTitle className="npc-card-type h3-responsive">Type: {npc.characterType}</MDBCardTitle>
@@ -91,16 +93,32 @@ class NpcCard extends React.Component {
                   <hr className="character-card-separator" />
                   <MDBRow start>
                     <MDBCol className="col-md-6">
-                      <MDBCardText className="character-card-stats h4-responsive">Hit Points: {npc.hitPoints}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Armor Class: {npc.armorClass}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Move Speed: {npc.moveSpeed}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Passive Perception: {npc.passivePerception}</MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Hit Points: {npc.hitPoints}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Armor Class: {npc.armorClass}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Move Speed: {npc.moveSpeed}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Passive Perception: {npc.passivePerception}
+                      </MDBCardText>
                     </MDBCol>
                     <MDBCol className="col-md-6">
-                      <MDBCardText className="character-card-stats h4-responsive">Initiative Modifier: {npc.initiativeModifier}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Spell Save DC: {npc.spellSaveDC}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Hit Points: {npc.hitPoints}</MDBCardText>
-                      <MDBCardText className="character-card-stats h4-responsive">Hit Points: {npc.hitPoints}</MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Initiative Modifier: {npc.initiativeModifier}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Spell Save DC: {npc.spellSaveDC}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Hit Points: {npc.hitPoints}
+                      </MDBCardText>
+                      <MDBCardText className="character-card-stats h4-responsive">
+                        Hit Points: {npc.hitPoints}
+                      </MDBCardText>
                     </MDBCol>
                   </MDBRow>
                 </MDBCardBody>

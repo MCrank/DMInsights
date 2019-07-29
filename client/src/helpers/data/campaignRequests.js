@@ -67,4 +67,60 @@ const deleteCampaign = (token, campaignId) =>
       });
   });
 
-export default { getUserCampaigns, createCampaign, updateCampaign, deleteCampaign };
+const getCampaignStatsPlayers = (token, campaignId) =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${dmiApiBaseUrl}/campaigns/${campaignId}/players`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+const getCampaignStatsSessions = (token, campaignId) =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${dmiApiBaseUrl}/campaigns/${campaignId}/sessions`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+const getCampaignStatsEncounters = (token, sessionId) =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${dmiApiBaseUrl}/campaigns/${sessionId}/encounters`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export default {
+  getUserCampaigns,
+  createCampaign,
+  updateCampaign,
+  deleteCampaign,
+  getCampaignStatsPlayers,
+  getCampaignStatsSessions,
+  getCampaignStatsEncounters,
+};

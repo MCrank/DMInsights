@@ -132,13 +132,32 @@ class PlayerCharacterForm extends React.Component {
           <div className="white-text">
             <MDBRow>
               <MDBCol md="5">
-                <MDBInput label="Name" icon="address-card" size="lg" value={character.name} onChange={this.characterNameChange} />
+                <MDBInput
+                  label="Name"
+                  icon="address-card"
+                  size="lg"
+                  value={character.name}
+                  onChange={this.characterNameChange}
+                />
               </MDBCol>
               <MDBCol md="5">
-                <MDBInput label="Class" icon="theater-masks" size="lg" value={character.classes} onChange={this.characterClassChange} />
+                <MDBInput
+                  label="Class"
+                  icon="theater-masks"
+                  size="lg"
+                  value={character.classes}
+                  onChange={this.characterClassChange}
+                />
               </MDBCol>
               <MDBCol md="2">
-                <MDBInput type="number" label="Level" icon="sort-amount-up" size="lg" value={character.level} onChange={this.characterLevelChange} />
+                <MDBInput
+                  type="number"
+                  label="Level"
+                  icon="sort-amount-up"
+                  size="lg"
+                  value={character.level}
+                  onChange={this.characterLevelChange}
+                />
               </MDBCol>
             </MDBRow>
             <MDBRow>
@@ -148,18 +167,44 @@ class PlayerCharacterForm extends React.Component {
               <MDBCol md="9">
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput label="Race" icon="dna" size="lg" value={character.characterRace} onChange={this.characterRaceChange} />
+                    <MDBInput
+                      label="Race"
+                      icon="dna"
+                      size="lg"
+                      value={character.characterRace}
+                      onChange={this.characterRaceChange}
+                    />
                   </MDBCol>
                   <MDBCol>
-                    <MDBInput label="Type" icon="fingerprint" size="lg" value={character.characterType} onChange={this.characterTypeChange} />
+                    <MDBInput
+                      label="Type"
+                      icon="fingerprint"
+                      size="lg"
+                      value={character.characterType}
+                      onChange={this.characterTypeChange}
+                    />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput type="number" label="Armor Class" icon="shield-alt" size="lg" value={character.armorClass} onChange={this.characterACChange} />
+                    <MDBInput
+                      type="number"
+                      label="Armor Class"
+                      icon="shield-alt"
+                      size="lg"
+                      value={character.armorClass}
+                      onChange={this.characterACChange}
+                    />
                   </MDBCol>
                   <MDBCol>
-                    <MDBInput type="number" label="Spell Save DC" icon="magic" size="lg" value={character.spellSaveDC} onChange={this.characterSpellDCChange} />
+                    <MDBInput
+                      type="number"
+                      label="Spell Save DC"
+                      icon="magic"
+                      size="lg"
+                      value={character.spellSaveDC}
+                      onChange={this.characterSpellDCChange}
+                    />
                   </MDBCol>
                   <MDBCol>
                     <MDBInput
@@ -174,7 +219,14 @@ class PlayerCharacterForm extends React.Component {
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput type="number" label="Hit Points" icon="heart" size="lg" value={character.hitPoints} onChange={this.characterHPChange} />
+                    <MDBInput
+                      type="number"
+                      label="Hit Points"
+                      icon="heart"
+                      size="lg"
+                      value={character.hitPoints}
+                      onChange={this.characterHPChange}
+                    />
                   </MDBCol>
                   <MDBCol>
                     <MDBInput
@@ -187,17 +239,37 @@ class PlayerCharacterForm extends React.Component {
                     />
                   </MDBCol>
                   <MDBCol>
-                    <MDBInput type="number" label="Movement Speed" icon="running" size="lg" value={character.moveSpeed} onChange={this.characterMoveSpeedChange} />
+                    <MDBInput
+                      type="number"
+                      label="Movement Speed"
+                      icon="running"
+                      size="lg"
+                      value={character.moveSpeed}
+                      onChange={this.characterMoveSpeedChange}
+                    />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput label="Description" icon="portrait" size="lg" type="textarea" value={character.description} onChange={this.characterDescChange} />
+                    <MDBInput
+                      label="Description"
+                      icon="portrait"
+                      size="lg"
+                      type="textarea"
+                      value={character.description}
+                      onChange={this.characterDescChange}
+                    />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <MDBInput label="Image URL" icon="image" size="lg" value={character.imageUrl} onChange={this.characterImageChange} />
+                    <MDBInput
+                      label="Image URL"
+                      icon="image"
+                      size="lg"
+                      value={character.imageUrl}
+                      onChange={this.characterImageChange}
+                    />
                   </MDBCol>
                 </MDBRow>
               </MDBCol>

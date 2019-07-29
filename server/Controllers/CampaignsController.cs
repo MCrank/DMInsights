@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DMInsights.Data;
 using DMInsights.Models.Campaigns;
+using DMInsights.Models.Encounters;
+using DMInsights.Models.GameSessions;
+using DMInsights.Models.PlayerCharacters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +24,44 @@ namespace DMInsights.Controllers
             _campaignsRepo = campaignsRepo;
             _campaignsUserRepo = campaignsUsersRepo;
         }
+
+        [HttpGet("{id}/players")]
+        public ActionResult<PlayerCharacter> GetCampaignPcs(int id)
+        {
+            var campaignPlayers = _campaignsRepo.GetCampaignPcs(id);
+
+            if (campaignPlayers == null )
+            {
+                return NotFound();
+            }
+            return Ok(campaignPlayers);
+        }
+
+        [HttpGet("{id}/sessions")]
+        public ActionResult<GameSession> GetCampaignSessions(int id)
+        {
+            var campaignSessions = _campaignsRepo.GetCampaignSessions(id);
+
+            if (campaignSessions == null)
+            {
+                return NotFound();
+            }
+            return Ok(campaignSessions);
+        }
+
+        [HttpGet("{id}/encounters")]
+        public ActionResult<Encounter> GetCampaignEncounters(int id)
+        {
+            var campaignSessionEncounters = _campaignsRepo.GetCampaignEncounters(id);
+
+            if (campaignSessionEncounters == null)
+            {
+                return NotFound();
+            }
+            return Ok(campaignSessionEncounters);
+        }
+        
+
 
         //GET: api/campaigns
         [HttpPost]
