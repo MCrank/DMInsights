@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DMInsights.Data;
+using DMInsights.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,8 +29,6 @@ namespace DMInsights
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -44,6 +43,20 @@ namespace DMInsights
                         ValidateLifetime = true
                     };
                 });
+
+            services.AddCors(Action =>
+            {
+                Action.AddPolicy("SignalRCORS", Builder =>
+                {
+                    Builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:3000");
+                });
+            });
+
+            services.AddSignalR();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.Configure<DBConfiguration>(Configuration);
             services.AddTransient<UsersRepository>();
@@ -67,12 +80,13 @@ namespace DMInsights
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseAuthentication();
-            app.UseCors(builder =>
+            app.UseCors("SignalRCORS");
+            app.UseSignalR(Configuration =>
             {
-                builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials();
+                Configuration.MapHub<Battle>("/battles");
             });
             app.UseMvc();
         }

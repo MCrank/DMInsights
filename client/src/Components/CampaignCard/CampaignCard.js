@@ -83,9 +83,11 @@ class CampaignCard extends React.Component {
             <MDBCardTitle className="campaign-card-title">{campaign.title}</MDBCardTitle>
             <MDBCardText className="campaign-card-text">{campaign.description}</MDBCardText>
             <MDBRow around>
-              <MDBBtn className="campaign-card-button" outline color="secondary">
-                Live Campaign
-              </MDBBtn>
+              <Link to={{ pathname: '/dmscreen', state: { campaign } }}>
+                <MDBBtn className="campaign-card-button" outline color="secondary">
+                  Live Campaign
+                </MDBBtn>
+              </Link>
               <MDBBtn className="campaign-card-button" outline color="info" onClick={this.getCampaignStats}>
                 Campaign Stats
               </MDBBtn>
