@@ -10,7 +10,7 @@ namespace DMInsights.Hubs
     {
         public Task SendMessageToAll(string message)
         {
-            return Clients.All.SendAsync("ReceiveMessage", message);
+            return Clients.Others.SendAsync("ReceiveMessage", message);
         }
 
         public async Task AddToGroup(string groupName)

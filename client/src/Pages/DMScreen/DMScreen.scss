@@ -3,3 +3,30 @@
 .DMScreen {
   color: white;
 }
+
+.dmscreen-initiative-row {
+  height: 10vh;
+  border: 1px solid tomato;
+}
+
+.dmscreen-clock-row {
+  justify-content: flex-end;
+}
+
+.rcw-messages-container {
+  background-color: $themePrussian;
+}
+
+.rcw-client {
+  color: $themeGold;
+  background-color: $themeBlack;
+}
+
+.rcw-response {
+  color: $themeWhite;
+  background-color: $themeSky;
+}
+
+.rcw-launcher {
+  background-color: $themePrussian;
+}
