@@ -59,7 +59,13 @@ class PlayerCharacter extends React.Component {
 
     const characterCards = (playerCharacters) =>
       playerCharacters.map((character, index) => (
-        <CharacterCard key={character.id} character={character} getPlayerCharacters={this.getPlayerCharacters} />
+        <CharacterCard
+          key={character.id}
+          character={character}
+          getPlayerCharacters={this.getPlayerCharacters}
+          joinCampaign={this.joinCampaign}
+          removeCampaign={this.removeCampaign}
+        />
       ));
 
     return (

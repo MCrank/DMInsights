@@ -1,6 +1,7 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import playerCharacterRequests from '../../helpers/data/playerCharacterRequests';
+import campaignRequests from '../../helpers/data/campaignRequests';
 import { Link } from 'react-router-dom';
 import {
   MDBCol,
@@ -18,17 +19,21 @@ import {
   MDBModalHeader,
   MDBModalBody,
   MDBModalFooter,
+  MDBInput,
 } from 'mdbreact';
 import './CharacterCard.scss';
 
 class CharacterCard extends React.Component {
   state = {
     deleteModal: false,
+    joinModal: false,
+    removeModal: false,
+    campaignCode: '',
   };
 
-  modalToggle = () => {
+  modalToggle = (modalName) => () => {
     this.setState({
-      deleteModal: !this.state.deleteModal,
+      [modalName]: !this.state[modalName],
     });
   };
 
@@ -36,13 +41,24 @@ class CharacterCard extends React.Component {
     return await this.props.auth.getAccessToken();
   };
 
+  formFieldStringState = (field, event) => {
+    event.preventDefault();
+    const tempChar = { ...this.state.campaignCode };
+    tempChar[field] = event.target.value;
+    this.setState({
+      campaignCode: tempChar,
+    });
+  };
+
+  campaignCodeChange = (event) => this.formFieldStringState('campaignCode', event);
+
   deletePlayerCharacter = async () => {
     const accessToken = await this.getAccessToken();
     const characterId = this.props.character.id;
     const { getPlayerCharacters } = this.props;
     await playerCharacterRequests.deletePlayerCharacter(accessToken, characterId).then((resp) => {
       if (resp.status === 204) {
-        this.modalToggle();
+        this.modalToggle('deleteModal');
         getPlayerCharacters();
       } else {
         console.error('There was an error deleting the character, please try again later');
@@ -50,20 +66,94 @@ class CharacterCard extends React.Component {
     });
   };
 
+  joinPCToCampaign = async () => {
+    const accessToken = await this.getAccessToken();
+    const { campaignCode } = this.state.campaignCode;
+    const { character, getPlayerCharacters } = this.props;
+    const selectedCampaign = await campaignRequests.getCampaignByConnectionId(accessToken, campaignCode);
+    character.campaignId = selectedCampaign.id;
+    await playerCharacterRequests
+      .updatePlayerCharacter(accessToken, character)
+      .then(() => {
+        this.setState({
+          joinModal: false,
+        });
+        getPlayerCharacters();
+      })
+      .catch((error) => {
+        console.error('An error occured joining you to the campaign ', error);
+      });
+  };
+
+  removeCampaign = async () => {
+    const accessToken = await this.getAccessToken();
+    const { character, getPlayerCharacters } = this.props;
+    character.campaignId = null;
+    await playerCharacterRequests
+      .updatePlayerCharacter(accessToken, character)
+      .then(() => {
+        this.setState({
+          removeModal: false,
+        });
+        getPlayerCharacters();
+      })
+      .catch((error) => {
+        console.error('An error occured removing you from the campaign', error);
+      });
+  };
+
   render() {
     const { character } = this.props;
     return (
       <React.Fragment>
         <MDBContainer>
-          <MDBModal isOpen={this.state.deleteModal} toggle={this.modalToggle} centered backdrop={false} dark>
-            <MDBModalHeader toggle={this.modalToggle}>Delete {character.name} ?</MDBModalHeader>
+          <MDBModal
+            isOpen={this.state.deleteModal}
+            toggle={this.modalToggle('deleteModal')}
+            centered
+            backdrop={false}
+            dark
+          >
+            <MDBModalHeader toggle={this.modalToggle('deleteModal')}>Delete {character.name} ?</MDBModalHeader>
             <MDBModalBody>Are you sure you want to delete this character?</MDBModalBody>
             <MDBModalFooter>
-              <MDBBtn outline color="success" onClick={this.modalToggle} size="sm">
+              <MDBBtn outline color="success" onClick={this.modalToggle('deleteModal')} size="sm">
                 Cancel
               </MDBBtn>
               <MDBBtn outline color="danger" onClick={this.deletePlayerCharacter} size="sm">
                 Delete
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModal>
+          <MDBModal isOpen={this.state.joinModal} toggle={this.modalToggle('joinModal')} centered backdrop={false} dark>
+            <MDBModalHeader toggle={this.modalToggle('joinModal')}>Join this campaign?</MDBModalHeader>
+            <MDBModalBody>
+              <MDBInput type="text" label="Campaign Code" icon="user-secret" onChange={this.campaignCodeChange} />
+            </MDBModalBody>
+            <MDBModalFooter>
+              <MDBBtn outline color="warning" onClick={this.modalToggle('joinModal')} size="sm">
+                Cancel
+              </MDBBtn>
+              <MDBBtn outline color="success" onClick={this.joinPCToCampaign} size="sm">
+                Join
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModal>
+          <MDBModal
+            isOpen={this.state.removeModal}
+            toggle={this.modalToggle('removeModal')}
+            centered
+            backdrop={false}
+            dark
+          >
+            <MDBModalHeader toggle={this.modalToggle('removeModal')}>Leave Campaign?</MDBModalHeader>
+            <MDBModalBody>Are you sure you want to leave this campaign?</MDBModalBody>
+            <MDBModalFooter>
+              <MDBBtn outline color="warning" onClick={this.modalToggle('removeModal')} size="sm">
+                Cancel
+              </MDBBtn>
+              <MDBBtn outline color="success" onClick={this.removeCampaign} size="sm">
+                Leave
               </MDBBtn>
             </MDBModalFooter>
           </MDBModal>
@@ -123,12 +213,39 @@ class CharacterCard extends React.Component {
                 </MDBCardFooter>
                 <MDBCardFooter>
                   <MDBRow className="character-card-btn-row">
+                    {character.campaignId === null ? (
+                      <MDBBtn
+                        className="character-card-btn"
+                        outline
+                        color="info"
+                        size="sm"
+                        onClick={this.modalToggle('joinModal')}
+                      >
+                        Join Campaign <MDBIcon className="character-card-btn-icon" icon="dragon" />
+                      </MDBBtn>
+                    ) : (
+                      <MDBBtn
+                        className="character-card-btn"
+                        outline
+                        color="info"
+                        size="sm"
+                        onClick={this.modalToggle('removeModal')}
+                      >
+                        Remove Campaign <MDBIcon className="character-card-btn-icon" icon="dragon" />
+                      </MDBBtn>
+                    )}
                     <Link to={{ pathname: '/playercharacterform', state: { character, isEditing: true } }}>
                       <MDBBtn className="character-card-btn" outline color="warning" size="sm" onClick={this.editPc}>
                         Edit <MDBIcon className="character-card-btn-icon" icon="edit" />
                       </MDBBtn>
                     </Link>
-                    <MDBBtn className="character-card-btn" outline color="danger" size="sm" onClick={this.modalToggle}>
+                    <MDBBtn
+                      className="character-card-btn"
+                      outline
+                      color="danger"
+                      size="sm"
+                      onClick={this.modalToggle('deleteModal')}
+                    >
                       Delete <MDBIcon className="character-card-btn-icon" icon="user-times" />
                     </MDBBtn>
                   </MDBRow>

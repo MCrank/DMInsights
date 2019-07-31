@@ -48,21 +48,40 @@ namespace DMInsights.Data
             {
                 var newPlayerCharacterQuery = @"
                         INSERT INTO [PlayerCharacters] (
-                          [Name], [HitPoints], [ArmorClass], [CampaignId], 
-                          [Description], [ImageUrl], [MoveSpeed], 
-                          [OwnerId], [CharacterRace], [CharacterType], 
-                          [PassivePerception], [InitiativeModifier], 
-                          [SpellSaveDC], [Classes], [Level]
-                        ) 
+                            [Name],
+                            [HitPoints],
+                            [ArmorClass],
+                            [CampaignId], 
+                            [Description],
+                            [ImageUrl],
+                            [MoveSpeed], 
+                            [OwnerId],
+                            [CharacterRace],
+                            [CharacterType], 
+                            [PassivePerception],
+                            [InitiativeModifier], 
+                            [SpellSaveDC],
+                            [Classes],
+                            [Level],
+                            [IsDeleted]) 
                         OUTPUT Inserted.*
-                        VALUES 
-                          (
-                            @Name, @HitPoints, @ArmorClass, @CampaignId, 
-                            @Description, @ImageUrl, @MoveSpeed, 
-                            @OwnerId, @CharacterRace, @CharacterType, 
-                            @PassivePerception, @InitiativeModifier, 
-                            @SpellSaveDC, @Classes, @Level
-                          )";
+                        VALUES (
+                            @Name,
+                            @HitPoints,
+                            @ArmorClass,
+                            @CampaignId, 
+                            @Description,
+                            @ImageUrl,
+                            @MoveSpeed, 
+                            @OwnerId,
+                            @CharacterRace,
+                            @CharacterType, 
+                            @PassivePerception,
+                            @InitiativeModifier, 
+                            @SpellSaveDC,
+                            @Classes,
+                            @Level,
+                            @IsDeleted)";
 
                 var newPlayerCharacter = db.QueryFirstOrDefault<PlayerCharacter>(newPlayerCharacterQuery, new
                 {
@@ -80,7 +99,8 @@ namespace DMInsights.Data
                     newPlayerCharacterObj.InitiativeModifier,
                     newPlayerCharacterObj.SpellSaveDC,
                     newPlayerCharacterObj.Classes,
-                    newPlayerCharacterObj.Level
+                    newPlayerCharacterObj.Level,
+                    newPlayerCharacterObj.IsDeleted
                 });
 
                 if (newPlayerCharacter != null)

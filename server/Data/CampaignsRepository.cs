@@ -21,23 +21,75 @@ namespace DMInsights.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
+        public Campaign GetCampaignByConnectionId(string connectionId)
+        {
+            using(var db = new SqlConnection(_connectionString))
+            {
+                var campaignByConnection = @"
+                        SELECT *
+                        FROM
+                            [Campaigns] c
+                        WHERE
+                            c.ConnectionId = @connectionId";
+
+                var myCampaign = db.QueryFirstOrDefault<Campaign>(campaignByConnection, new { connectionId });
+
+                if (myCampaign == null)
+                {
+                    return null;
+                }
+                return myCampaign;
+            }
+        }
+
         public List<Campaign> GetMyCampaigns(int id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
                 var myCampaignsSqlQuery = @"
-                        SELECT 
-                            c.Id, c.Title, c.[Description], c.ConnectionID, c.ImageUrl, c.OwnerId
-                        FROM 
-                            [Users] u
-                        JOIN
-                            [CampaignsUsers] cu ON cu.UserId = u.Id
-                        JOIN
-                            [Campaigns] c ON c.Id = cu.CampaignId
-                        WHERE 
+                        SELECT
+                            c.*
+                        FROM
+                            [Campaigns] c
+                            JOIN
+                                [Users] u
+                            ON
+                                u.Id = c.OwnerId
+                        WHERE
+                            u.id            = @id
+                            AND c.IsDeleted = 0
+                        
+                        UNION
+                        
+                        SELECT
+                            c.*
+                        FROM
+                            [Campaigns] c
+                            JOIN
+                                [PlayerCharacters] pc
+                            ON
+                                pc.CampaignId = c.Id
+                            JOIN
+                                [Users] u
+                            ON
+                                u.Id = pc.OwnerId
+                        WHERE
                             u.id = @id
-                        AND
-                            c.IsDeleted = 0";
+                            AND pc.IsDeleted = 0";
+
+                //var myCampaignsSqlQuery = @"
+                //        SELECT 
+                //            c.Id, c.Title, c.[Description], c.ConnectionID, c.ImageUrl, c.OwnerId
+                //        FROM 
+                //            [Users] u
+                //        JOIN
+                //            [CampaignsUsers] cu ON cu.UserId = u.Id
+                //        JOIN
+                //            [Campaigns] c ON c.Id = cu.CampaignId
+                //        WHERE 
+                //            u.id = @id
+                //        AND
+                //            c.IsDeleted = 0";
 
                 var myCampaigns = db.Query<Campaign>(myCampaignsSqlQuery, new { id });
 

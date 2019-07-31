@@ -244,7 +244,7 @@ class Campaign extends React.Component {
                   )}
                   <h3>Encounters</h3>
                   {campaignEncounters.length !== 0 ? (
-                    <MDBTable striped small responsiveMd mx-auto>
+                    <MDBTable striped small responsiveMd mx-auto="true">
                       <MDBTableHead textWhite>
                         <tr>
                           <th colSpan={2}>Date</th>

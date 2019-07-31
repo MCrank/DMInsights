@@ -112,14 +112,18 @@ class PlayerCharacterForm extends React.Component {
     character.ownerId = dbRequest.dbUid;
 
     if (this.props.location.state.isEditing) {
-      playerCharacterRequests.updatePlayerCharacter(dbRequest.accessToken, character).then((resp) => {
-        console.log(resp);
+      playerCharacterRequests.updatePlayerCharacter(dbRequest.accessToken, character).then(() => {
         this.props.history.push('/characters');
       });
     } else {
-      playerCharacterRequests.createPlayerCharacter(dbRequest.accessToken, character).then((resp) => {
-        this.props.history.push('/characters');
-      });
+      playerCharacterRequests
+        .createPlayerCharacter(dbRequest.accessToken, character)
+        .then(() => {
+          this.props.history.push('/characters');
+        })
+        .catch((error) => {
+          console.error('An error occured performing an action on your character', error);
+        });
     }
   };
 
@@ -277,7 +281,7 @@ class PlayerCharacterForm extends React.Component {
             <MDBCol>
               <MDBRow className="justify-content-around">
                 <MDBBtn className="character-card-btn" outline color="info" onClick={this.previousPage}>
-                  Go Back <MDBIcon className="character-card-btn-icon" fas icon="arrow-circle-left" size="lg" />
+                  Go Back <MDBIcon className="character-card-btn-icon" fas={true} icon="arrow-circle-left" size="lg" />
                 </MDBBtn>
                 <MDBBtn className="character-card-btn" outline color="info" onClick={this.characterFormSubmit}>
                   Save <MDBIcon className="character-card-btn-icon" far icon="save" size="lg" />

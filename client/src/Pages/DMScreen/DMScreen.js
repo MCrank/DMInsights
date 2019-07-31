@@ -21,7 +21,7 @@ class DMScreen extends React.Component {
 
   componentDidMount() {
     this.signalRConnection
-      .start({ withCRedentials: false })
+      .start({ withCredentials: false })
       .then(() => {
         const groupName = this.props.location.state.campaign.connectionId;
         this.signalRConnection.invoke('AddToGroup', groupName).then((resp) => {});
@@ -68,7 +68,7 @@ class DMScreen extends React.Component {
             </MDBCol>
             <MDBCol>
               <MDBRow className="dmscreen-clock-row">
-                <Clock format={'LTS'} ticking={true} timezone={'US/Central'} style={{ fontSize: '4rem' }} />
+                <Clock format={'LTS'} ticking={true} style={{ fontSize: '4rem' }} />
               </MDBRow>
               <MDBRow>
                 <Widget
