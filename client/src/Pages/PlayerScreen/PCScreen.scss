@@ -18,3 +18,47 @@
   background-color: $themeBlack;
   color: $themeWhite;
 }
+
+.pcscreen-stats-col {
+  display: flex;
+}
+
+.pcscreen-stats-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pcscreen-stats-armorclass {
+  text-align: center;
+  width: 45px;
+  margin: 0;
+  position: relative;
+  top: 78px;
+  right: -32px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.pcscreen-stats-hitpoints {
+  text-align: center;
+  width: 45px;
+  margin: 0;
+  position: relative;
+  top: 78px;
+  right: -37px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.pcscreen-stats-initiatve {
+  text-align: center;
+  width: 45px;
+  margin: 0;
+  position: relative;
+  top: 78px;
+  right: -32px;
+  font-size: 35px;
+  font-weight: bold;
+}

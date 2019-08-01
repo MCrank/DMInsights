@@ -1,12 +1,14 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
-import apiKeys from '../../helpers/apiKeys';
 import { HubConnectionBuilder } from '@aspnet/signalr';
 import { MDBContainer, MDBCol, MDBRow, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn } from 'mdbreact';
-import Clock from 'react-live-clock';
 import { Widget, addResponseMessage } from 'react-chat-widget';
+import apiKeys from '../../helpers/apiKeys';
+import Clock from 'react-live-clock';
 import playerCharacterRequests from '../../helpers/data/playerCharacterRequests';
 import userRequests from '../../helpers/data/userRequests';
+import { Icon, Stack } from '@mdi/react';
+import { mdiShieldOutline, mdiHeartOutline, mdiHexagonOutline, mdiBlockHelper } from '@mdi/js';
 
 import 'react-chat-widget/lib/styles.css';
 import './PCScreen.scss';
@@ -170,7 +172,22 @@ class PCScreen extends React.Component {
                 <MDBCol>
                   <img className="pcscreen-char-img img-fluid" src={selectedCharacter.imageUrl} alt="" />
                 </MDBCol>
-                <MDBCol>Player AC/HP/INIT</MDBCol>
+                <MDBCol className="pcscreen-stats-col">
+                  {/* <Stack size={4.5}> */}
+                  <div className="pcscreen-stats-div">
+                    <p className="pcscreen-stats-armorclass">{selectedCharacter.armorClass}</p>
+                    <Icon title="Armor Class" path={mdiShieldOutline} size={4.5} color="#d9b310" />
+                    <p>Armor Class</p>
+                  </div>
+                  <div>
+                    <p className="pcscreen-stats-hitpoints">{selectedCharacter.hitPoints}</p>
+                    <Icon title="Hit Point" path={mdiHeartOutline} size={5} color="#d9b310" />
+                  </div>
+                  <div>
+                    <p className="pcscreen-stats-initiative" />
+                    <Icon title="Initiative" path={mdiHexagonOutline} size={5} color="#d9b310" />
+                  </div>
+                </MDBCol>
               </MDBRow>
               <MDBRow>Player Stats</MDBRow>
               <MDBRow>Notes?</MDBRow>
