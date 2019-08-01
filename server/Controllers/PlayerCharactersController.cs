@@ -38,6 +38,21 @@ namespace DMInsights.Controllers
             }
         }
 
+        [HttpGet("{id}/campaign/{campaignId}")]
+        public ActionResult<PlayerCharacter> GetPlayerCharactersByUserIdCampaign(int id, int campaignId)
+        {
+            var playerCharacters = _playerCharactersRepo.GetPlayerCharactersByUserIdCampaign(id, campaignId);
+
+            if (playerCharacters == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(playerCharacters);
+            }
+        }
+
         [HttpPost]
         public ActionResult<PlayerCharacter> CreatePlayerCharacter([FromBody] PlayerCharacter newPlayerCharacterObj)
         {

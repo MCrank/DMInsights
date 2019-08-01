@@ -19,6 +19,22 @@ const getplayerCharactersByUserId = (uid, token) =>
       });
   });
 
+const getplayerCharactersByUserIdCampaign = (token, uid, campaignId) =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${dmiApiBaseUrl}/PlayerCharacters/${uid}/campaign/${campaignId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
 const createPlayerCharacter = (token, playerCharacterObj) =>
   new Promise((resolve, reject) => {
     axios
@@ -67,4 +83,10 @@ const deletePlayerCharacter = (token, id) =>
       });
   });
 
-export default { getplayerCharactersByUserId, createPlayerCharacter, updatePlayerCharacter, deletePlayerCharacter };
+export default {
+  getplayerCharactersByUserId,
+  createPlayerCharacter,
+  updatePlayerCharacter,
+  deletePlayerCharacter,
+  getplayerCharactersByUserIdCampaign,
+};

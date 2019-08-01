@@ -42,6 +42,31 @@ namespace DMInsights.Data
             throw new Exception("Error querying Player Characters");
         }
 
+        public List<PlayerCharacter> GetPlayerCharactersByUserIdCampaign(int ownerId, int campaignId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var getPCsQuery = @"
+                        Select *
+                        FROM [PlayerCharacters]
+                        WHERE PlayerCharacters.OwnerId = @ownerId
+                        AND PlayerCharacters.CampaignId = @campaignId
+                        AND PlayerCharacters.IsDeleted = 0";
+
+                var playerCharacters = db.Query<PlayerCharacter>(getPCsQuery, new { ownerId, campaignId });
+
+                if (playerCharacters != null)
+                {
+                    return playerCharacters.ToList();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            throw new Exception("Error querying Player Characters");
+        }
+
         public PlayerCharacter CreateNewPlayerCharacter(PlayerCharacter newPlayerCharacterObj)
         {
             using (var db = new SqlConnection(_connectionString))

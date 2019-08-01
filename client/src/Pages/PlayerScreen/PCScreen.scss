@@ -3,3 +3,18 @@
 .PCScreen {
   color: $themeWhite;
 }
+
+.pcscreen-clock-row {
+  justify-content: flex-end;
+  margin-right: auto;
+}
+
+.pcscreen-select-div {
+  padding: 0px 1rem;
+  margin-bottom: 1rem;
+}
+
+.pcscreen-char-select {
+  background-color: $themeBlack;
+  color: $themeWhite;
+}
