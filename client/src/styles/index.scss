@@ -2,11 +2,34 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.rcw-client {
+  color: $themeGold;
+  background-color: $themeBlack;
+}
+
+.rcw-response {
+  color: $themeWhite;
+  background-color: $themeSky;
+}
+
+.rcw-launcher {
+  background-color: $themePrussian;
+}
+
+.rcw-header {
+  background-color: $themeBlack !important;
+}
+
+.rcw-messages-container::-webkit-scrollbar {
+  width: 0 !important;
 }

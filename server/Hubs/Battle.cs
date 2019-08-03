@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using DMInsights.Models.NonPlayerCharacters;
+using DMInsights.Models.PlayerCharacters;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,21 @@ namespace DMInsights.Hubs
         public async Task CharacterJoinedParty(string groupName, string characterName)
         {
             await Clients.Group(groupName).SendAsync("ReceiveMessage", $"{characterName} has joined the party.");
+        }
+
+        public async Task SendCharacterToDM(string groupName, PlayerCharacter newPlayerCharacter)
+        {
+            await Clients.Group(groupName).SendAsync("NewPlayerToAdd", newPlayerCharacter);
+        }
+
+        public async Task SendInitToDm(string groupName, InitiativeTracker pcInitRoll)
+        {
+            await Clients.Group(groupName).SendAsync("PlayerInitiative", pcInitRoll);
+        }
+
+        public async Task ResetPlayerInit(string groupName)
+        {
+            await Clients.Group(groupName).SendAsync("ResetInitiative");
         }
     }
 }

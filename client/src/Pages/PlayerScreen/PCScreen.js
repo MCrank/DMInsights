@@ -7,8 +7,8 @@ import apiKeys from '../../helpers/apiKeys';
 import Clock from 'react-live-clock';
 import playerCharacterRequests from '../../helpers/data/playerCharacterRequests';
 import userRequests from '../../helpers/data/userRequests';
-import { Icon, Stack } from '@mdi/react';
-import { mdiShieldOutline, mdiHeartOutline, mdiHexagonOutline, mdiBlockHelper } from '@mdi/js';
+import { Icon } from '@mdi/react';
+import { mdiShieldOutline, mdiHeartOutline, mdiHexagonOutline } from '@mdi/js';
 
 import 'react-chat-widget/lib/styles.css';
 import './PCScreen.scss';
@@ -25,6 +25,7 @@ class PCScreen extends React.Component {
     campaignCharacters: [],
     inputSelectValue: '',
     selectedCharacter: {},
+    currentInitiative: 0,
   };
 
   signalRConnection = new HubConnectionBuilder().withUrl(dmiHubUrl).build();
@@ -45,6 +46,11 @@ class PCScreen extends React.Component {
       .catch((error) => console.error('Error connecting to SignalR', error));
     this.signalRConnection.on('ReceiveMessage', (message) => {
       this.receiveMessage(message);
+    });
+    this.signalRConnection.on('ResetInitiative', () => {
+      this.setState({
+        currentInitiative: 0,
+      });
     });
   };
 
@@ -93,6 +99,10 @@ class PCScreen extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.signalRConnection.stop();
+  }
+
   getMyCampaignCharacters = async () => {
     const { campaign } = this.props.location.state;
     const dbRequest = await this.getDbUserRequestItems();
@@ -116,9 +126,11 @@ class PCScreen extends React.Component {
     const chosenCharacter = campaignCharacters.find((char) => char.name === inputSelectValue);
     this.setState({
       selectedCharacter: chosenCharacter,
+      currentInitiative: 0,
     });
     this.modalToggle();
     this.signalRConnection.invoke('CharacterJoinedParty', signalRGroup, inputSelectValue);
+    this.signalRConnection.invoke('SendCharacterToDM', signalRGroup, chosenCharacter);
   };
 
   sendMessage = (newMessage) => {
@@ -137,8 +149,24 @@ class PCScreen extends React.Component {
     });
   };
 
+  sendInitiative = () => {
+    const { selectedCharacter, currentInitiative } = this.state;
+    const playerInitiative = {
+      CharacterName: selectedCharacter.name,
+      InitiativeRoll: currentInitiative,
+    };
+    const groupName = this.props.location.state.campaign.connectionId;
+    this.signalRConnection.invoke('SendInitToDm', groupName, playerInitiative);
+  };
+
+  characterInitChange = (event) => {
+    this.setState({
+      currentInitiative: event.target.value * 1,
+    });
+  };
+
   render() {
-    const { messageCount, campaignCharacters, selectedCharacter } = this.state;
+    const { messageCount, campaignCharacters, selectedCharacter, currentInitiative } = this.state;
     return (
       <div className="PCScreen">
         <MDBContainer>
@@ -172,22 +200,65 @@ class PCScreen extends React.Component {
                 <MDBCol>
                   <img className="pcscreen-char-img img-fluid" src={selectedCharacter.imageUrl} alt="" />
                 </MDBCol>
-                <MDBCol className="pcscreen-stats-col">
-                  {/* <Stack size={4.5}> */}
-                  <div className="pcscreen-stats-div">
-                    <p className="pcscreen-stats-armorclass">{selectedCharacter.armorClass}</p>
-                    <Icon title="Armor Class" path={mdiShieldOutline} size={4.5} color="#d9b310" />
-                    <p>Armor Class</p>
-                  </div>
-                  <div>
-                    <p className="pcscreen-stats-hitpoints">{selectedCharacter.hitPoints}</p>
-                    <Icon title="Hit Point" path={mdiHeartOutline} size={5} color="#d9b310" />
-                  </div>
-                  <div>
-                    <p className="pcscreen-stats-initiative" />
-                    <Icon title="Initiative" path={mdiHexagonOutline} size={5} color="#d9b310" />
-                  </div>
-                </MDBCol>
+                <MDBRow>
+                  <MDBCol className="pcscreen-stats-col">
+                    {/* <Stack size={4.5}> */}
+                    <div className="pcscreen-stats-div">
+                      <p className="pcscreen-stats-armorclass">{selectedCharacter.armorClass}</p>
+                      <Icon
+                        className="pcscreen-svg"
+                        title="Armor Class"
+                        path={mdiShieldOutline}
+                        size={4.5}
+                        color="#d9b310"
+                      />
+                      <p className="pcclass-stats-text">Armor Class</p>
+                    </div>
+                    <div>
+                      <p className="pcscreen-stats-hitpoints">{selectedCharacter.hitPoints}</p>
+                      <Icon
+                        className="pcscreen-svg"
+                        title="Hit Point"
+                        path={mdiHeartOutline}
+                        size={5}
+                        color="#d9b310"
+                      />
+                      <p className="pcclass-stats-text">Hit Points</p>
+                      <div className="def-number-input number-input">
+                        <button onClick={this.decrease} className="minus" />
+                        <input
+                          className="hitpoints"
+                          name="hitpoints"
+                          value={this.state.value}
+                          onChange={() => console.log('change')}
+                          type="number"
+                        />
+                        <button onClick={this.increase} className="plus" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="pcscreen-stats-initiative">{currentInitiative === null ? '' : currentInitiative}</p>
+                      <Icon
+                        className="pcscreen-svg"
+                        title="Initiative"
+                        path={mdiHexagonOutline}
+                        size={5}
+                        color="#d9b310"
+                      />
+                      <p className="pcclass-stats-text">Initiative</p>
+                      <div className="def-number-input number-input">
+                        <input
+                          className="initiative"
+                          name="initiative"
+                          value={this.state.currentInitiative}
+                          onChange={this.characterInitChange}
+                          type="number"
+                          onBlur={this.sendInitiative}
+                        />
+                      </div>
+                    </div>
+                  </MDBCol>
+                </MDBRow>
               </MDBRow>
               <MDBRow>Player Stats</MDBRow>
               <MDBRow>Notes?</MDBRow>
@@ -201,7 +272,7 @@ class PCScreen extends React.Component {
           <Widget
             handleNewUserMessage={this.sendMessage}
             title="DM Insights Chat"
-            subtitle="Get Funky"
+            subtitle=""
             autoficus="true"
             fullscreenMode="false"
             badge={messageCount}
