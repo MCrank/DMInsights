@@ -3,14 +3,22 @@
 .DMScreen {
   color: white;
 }
-
-.dmscreen-initiative-row {
-  height: 10vh;
-  border: 1px solid tomato;
+hr {
+  border-top: 1px solid $themeWhite;
 }
 
+.dmscreen-initiative-row {
+  // height: 10vh;
+  border: 1px solid tomato;
+  padding: 10px;
+}
+
+.dmscreen-titles {
+  text-align: center;
+}
 .dmscreen-clock-row {
   justify-content: flex-end;
+  margin-right: auto;
 }
 
 .rcw-messages-container {

@@ -2,8 +2,11 @@ import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import apiKeys from '../../helpers/apiKeys';
 import { HubConnectionBuilder } from '@aspnet/signalr';
-import { MDBContainer, MDBCol, MDBRow } from 'mdbreact';
+import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact';
+import userRequests from '../../helpers/data/userRequests';
 import Clock from 'react-live-clock';
+import DMScreenPlayerCard from '../../Components/DMScreenPlayerCards/DMScreenPlayerCard';
+import DMScreenInitToken from '../../Components/DMScreenInitTokens/DMScreenInitTokens';
 import { Widget, addResponseMessage } from 'react-chat-widget';
 
 import 'react-chat-widget/lib/styles.css';
@@ -13,62 +16,165 @@ const dmiHubUrl = apiKeys.DMIInsigtsHub.url;
 
 class DMScreen extends React.Component {
   state = {
+    currentUser: {},
     date: new Date(),
     messageCount: 0,
+    campaignPlayers: [],
+    initTrackerTokens: [],
   };
 
   signalRConnection = new HubConnectionBuilder().withUrl(dmiHubUrl).build();
 
-  componentDidMount() {
+  setupSignalR = async () => {
+    const { currentUser } = this.state;
     this.signalRConnection
-      .start({ withCRedentials: false })
+      .start({ withCredential: false })
       .then(() => {
         const groupName = this.props.location.state.campaign.connectionId;
-        this.signalRConnection.invoke('AddToGroup', groupName).then((resp) => {});
+        this.signalRConnection.invoke('AddToGroup', groupName, currentUser.name).then(() => {
+          console.log('Joining SignalR Group: ', groupName);
+        });
       })
-      .catch((error) => console.error('Error connecting to SIgnalR', error));
+      .catch((error) => console.error('Error connecting to SignalR', error));
+    // Chat and Notifications to chat ilstener
     this.signalRConnection.on('ReceiveMessage', (message) => {
-      this.ReceiveMessage(message);
+      this.receiveMessage(message);
     });
-    setInterval(
-      () =>
-        this.setState({
-          date: new Date(),
-        }),
-      1000
-    );
+    // Get a character that just joined and add to State Listener
+    this.signalRConnection.on('NewPlayerToAdd', (newPlayer) => {
+      this.setState((prevState) => ({
+        campaignPlayers: [...prevState.campaignPlayers, newPlayer],
+      }));
+    });
+    // Player Initiative
+    this.signalRConnection.on('PlayerInitiative', (newInitRoll) => {
+      if (this.state.initTrackerTokens.length < 1) {
+        this.setState((prevInitState) => ({
+          initTrackerTokens: [...prevInitState.initTrackerTokens, newInitRoll],
+        }));
+      } else {
+        this.updateInitTokens(newInitRoll).then(() => {
+          this.manageInitTokensOrder(newInitRoll);
+        });
+      }
+    });
+  };
+
+  updateInitTokens = async (newInitRoll) => {
+    const tempTokens = [...this.state.initTrackerTokens];
+    const tokenIndex = tempTokens.findIndex((token) => token.characterName === newInitRoll.characterName);
+    if (tokenIndex > -1) {
+      tempTokens[tokenIndex] = newInitRoll;
+    } else {
+      tempTokens.push(newInitRoll);
+    }
+    this.setState({
+      initTrackerTokens: tempTokens,
+    });
+  };
+
+  manageInitTokensOrder = (newInitRoll) => {
+    const tempTokens = [...this.state.initTrackerTokens];
+    if (tempTokens.length > 1) {
+      tempTokens.sort((a, b) => a.initiativeRoll - b.initiativeRoll);
+      this.setState({
+        initTrackerTokens: tempTokens,
+      });
+    }
+  };
+
+  getAccessToken = async () => {
+    return await this.props.auth.getAccessToken();
+  };
+
+  getCurrentUser = async () => {
+    const user = await this.props.auth.getUser();
+    return user;
+  };
+
+  getDbUserRequestItems = async () => {
+    const accessToken = await this.getAccessToken();
+    const tokenId = await this.getCurrentUser();
+    const dbUid = await userRequests.getUserByTokenId(accessToken, tokenId.user_id);
+    let dbRequestObj = {
+      accessToken: accessToken,
+      tokenId: tokenId,
+      dbUid: dbUid.id,
+    };
+    this.setState({
+      currentUser: tokenId,
+    });
+    return dbRequestObj;
+  };
+
+  componentDidMount() {
+    this.getDbUserRequestItems().then(() => {
+      this.setupSignalR();
+      setInterval(
+        () =>
+          this.setState({
+            date: new Date(),
+          }),
+        1000
+      );
+    });
   }
 
   sendMessage = (newMessage) => {
-    this.signalRConnection.invoke('SendMessageToAll', newMessage);
+    const message = `DM:  ${newMessage}`;
+    this.signalRConnection.invoke('SendMessageToAll', message);
     this.setState({
       messageCount: 0,
     });
   };
 
-  ReceiveMessage = (message) => {
+  receiveMessage = (message) => {
     addResponseMessage(message);
     this.setState({
       messageCount: this.state.messageCount + 1,
     });
   };
 
+  resetPlayerInitiative = () => {
+    const groupName = this.props.location.state.campaign.connectionId;
+    this.signalRConnection.invoke('ResetPlayerInit', groupName).then(() => {
+      this.setState({
+        initTrackerTokens: [],
+      });
+    });
+  };
+
   render() {
-    const { messageCount } = this.state;
+    const { messageCount, campaignPlayers, initTrackerTokens } = this.state;
+
+    const dmPlayerCards = (campaignPlayers) =>
+      campaignPlayers.map((character) => <DMScreenPlayerCard key={character.id} character={character} />);
+
+    const initTrackers = (initTrackerTokens) =>
+      initTrackerTokens.map((initTracker, index) => <DMScreenInitToken key={index} initTracker={initTracker} />);
 
     return (
       <div className="DMScreen">
         <MDBContainer fluid>
           <MDBRow>
-            <MDBCol>
-              <MDBRow className="dmscreen-initiative-row">Inititaive</MDBRow>
-              <MDBRow className="dmscreen-players-row">Players</MDBRow>
+            <MDBCol size="md-9">
+              <h2 className="dmscreen-titles"> Initiative Tracker</h2>
+              <MDBRow className="dmscreen-initiative-row">{initTrackers(initTrackerTokens)}</MDBRow>
+              <MDBRow end>
+                <MDBBtn className="init-reset" outline color="info" onClick={this.resetPlayerInitiative}>
+                  Reset initiative
+                </MDBBtn>
+              </MDBRow>
+              <hr />
+              <h2 className="dmscreen-titles">Party Tents</h2>
+              <MDBRow className="dmscreen-players-row">{dmPlayerCards(campaignPlayers)}</MDBRow>
+              <hr />
               <MDBRow className="dmscreen-npc-row">Monsters</MDBRow>
               <MDBRow className="dmscreen-notes-row">Notes?</MDBRow>
             </MDBCol>
             <MDBCol>
               <MDBRow className="dmscreen-clock-row">
-                <Clock format={'LTS'} ticking={true} timezone={'US/Central'} style={{ fontSize: '4rem' }} />
+                <Clock format={'LT'} ticking={true} style={{ fontSize: '4rem' }} />
               </MDBRow>
               <MDBRow>
                 <Widget

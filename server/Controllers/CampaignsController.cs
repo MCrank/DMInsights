@@ -25,6 +25,18 @@ namespace DMInsights.Controllers
             _campaignsUserRepo = campaignsUsersRepo;
         }
 
+        [HttpGet("{connectionId}/connection")]
+        public ActionResult<Campaign> GetCampaignByConnectionId(string connectionId)
+        {
+            var campiagn = _campaignsRepo.GetCampaignByConnectionId(connectionId);
+
+            if (campiagn == null)
+            {
+                return NotFound();
+            }
+            return Ok(campiagn);
+        }
+
         [HttpGet("{id}/players")]
         public ActionResult<PlayerCharacter> GetCampaignPcs(int id)
         {
@@ -61,8 +73,6 @@ namespace DMInsights.Controllers
             return Ok(campaignSessionEncounters);
         }
         
-
-
         //GET: api/campaigns
         [HttpPost]
         public ActionResult<Campaign> CreateCampaign(Campaign campaignObj)
@@ -83,6 +93,8 @@ namespace DMInsights.Controllers
             }
             return newCampaign;
         }
+
+        //[HttpPost("{}")]
 
         [HttpPut]
         public ActionResult<Campaign> UpdateCampaign([FromBody] Campaign updatedCampaignObj)

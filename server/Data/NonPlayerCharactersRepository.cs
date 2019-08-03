@@ -59,7 +59,8 @@ namespace DMInsights.Data
                         [PassivePerception], 
                         [InitiativeModifier], 
                         [SpellSaveDC], 
-                        [ChallengeRating])
+                        [ChallengeRating],
+                        [IsDeleted])
                     OUTPUT inserted.*
                     VALUES(
                         @Name, 
@@ -74,7 +75,8 @@ namespace DMInsights.Data
                         @PassivePerception, 
                         @InitiativeModifier, 
                         @SpellSaveDC, 
-                        @ChallengeRating)";
+                        @ChallengeRating,
+                        @IsDeleted)";
 
                 var newNpc = db.QueryFirstOrDefault<NonPlayerCharacter>(createNpcQuery, new
                 {
@@ -90,7 +92,8 @@ namespace DMInsights.Data
                     npcObject.PassivePerception,
                     npcObject.InitiativeModifier,
                     npcObject.SpellSaveDC,
-                    npcObject.ChallengeRating
+                    npcObject.ChallengeRating,
+                    npcObject.IsDeleted
                 });
 
                 if (newNpc == null)

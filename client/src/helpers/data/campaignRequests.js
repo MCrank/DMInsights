@@ -115,6 +115,22 @@ const getCampaignStatsEncounters = (token, sessionId) =>
       });
   });
 
+const getCampaignByConnectionId = (token, connectionId) =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${dmiApiBaseUrl}/campaigns/${connectionId}/connection`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
+        resolve(resp.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
 export default {
   getUserCampaigns,
   createCampaign,
@@ -123,4 +139,5 @@ export default {
   getCampaignStatsPlayers,
   getCampaignStatsSessions,
   getCampaignStatsEncounters,
+  getCampaignByConnectionId,
 };

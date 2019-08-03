@@ -82,8 +82,21 @@ class CampaignCard extends React.Component {
           <MDBCardBody className="campaign-card-body">
             <MDBCardTitle className="campaign-card-title">{campaign.title}</MDBCardTitle>
             <MDBCardText className="campaign-card-text">{campaign.description}</MDBCardText>
+            {userDbId === campaign.ownerId ? (
+              <MDBCardText className="campaign-card-invite">
+                <span className="campaign-invite-prefix">Invite Code:</span> {campaign.connectionId}
+              </MDBCardText>
+            ) : (
+              ''
+            )}
             <MDBRow around>
-              <Link to={{ pathname: '/dmscreen', state: { campaign } }}>
+              <Link
+                to={
+                  userDbId === campaign.ownerId
+                    ? { pathname: '/dmscreen', state: { campaign } }
+                    : { pathname: '/pcscreen', state: { campaign } }
+                }
+              >
                 <MDBBtn className="campaign-card-button" outline color="secondary">
                   Live Campaign
                 </MDBBtn>

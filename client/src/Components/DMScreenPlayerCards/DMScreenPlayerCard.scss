@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+
+.DMScreenPlayerCard {
+  color: $themeWhite;
+  margin: 10px 10px;
+  // width: 20%;
+}
+
+.dmscreen-player-card {
+  width: 12rem;
+  background-color: $themePrussian;
+}
+
+.dmscreen-player-card-divider {
+  border-top: 1px solid $themeSky;
+}
+
+.dmscreen-player-card-title {
+  text-align: center;
+}
+
+.dmscreen-player-card-stat {
+  display: block;
+  text-align: center;
+}
+
+.dmscreen-player-card-stat div {
+  color: $themeGold;
+}
