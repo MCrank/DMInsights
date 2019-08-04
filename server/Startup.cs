@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 using DMInsights.Data;
 using DMInsights.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -55,8 +57,13 @@ namespace DMInsights
                 });
             });
 
-            services.AddSignalR();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSignalR().AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.WriteIndented = false;
+            });
+
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.Configure<DBConfiguration>(Configuration);
             services.AddTransient<UsersRepository>();
@@ -69,7 +76,7 @@ namespace DMInsights
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -80,14 +87,18 @@ namespace DMInsights
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
+            app.UseRouting();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseCors("SignalRCORS");
-            app.UseSignalR(Configuration =>
+            app.UseEndpoints(endpoints =>
             {
-                Configuration.MapHub<Battle>("/battles");
+                endpoints.MapHub<Battle>("/battles");
             });
+            //app.UseSignalR(routes =>
+            //{
+            //    routes.MapHub<Battle>("/battles");
+            //});
             app.UseMvc();
         }
     }

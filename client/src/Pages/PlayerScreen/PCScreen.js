@@ -28,7 +28,11 @@ class PCScreen extends React.Component {
     currentInitiative: 0,
   };
 
-  signalRConnection = new HubConnectionBuilder().withUrl(dmiHubUrl).build();
+  signalRConnection = new HubConnectionBuilder()
+    .withUrl(dmiHubUrl)
+    .withAutomaticReconnect([0, 1000, 5000, 10000, null])
+    .configureLogging('information')
+    .build();
 
   setupSignalR = async () => {
     const { currentUser } = this.state;
