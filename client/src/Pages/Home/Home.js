@@ -30,6 +30,14 @@ class Home extends React.Component {
     return await this.props.auth.getAccessToken();
   };
 
+  logoutFunction = async () => {
+    await this.props.auth.logout();
+    sessionStorage.removeItem('DMI_User');
+    this.setState({
+      isAuthed: false,
+    });
+  };
+
   componentDidMount() {
     this.checkAuthentication()
       .then(() => {
@@ -37,7 +45,13 @@ class Home extends React.Component {
           const existingDBUser = sessionStorage.getItem('DMI_User');
           if (existingDBUser !== 'true') {
             this.isExistingUser().then((resp) => {
-              if (!resp) {
+              if (resp === 'error') {
+                // Possible DB error.  Log the user out
+                this.logoutFunction().then(() => {
+                  alert('There was an error communicating with the Database. Please try again later');
+                });
+              } else if (!resp) {
+                // User does not exist in DB
                 this.createNewUser();
               }
             });
@@ -51,22 +65,20 @@ class Home extends React.Component {
   isExistingUser = async () => {
     const token = await this.getAccessToken();
     const tokenId = await this.getCurrentUser();
-    userRequests
-      .getUserByTokenId(token, tokenId.user_id)
-      .then(() => {
-        sessionStorage.setItem('DMI_User', 'true');
-        return true;
-      })
-      .catch((error) => {
-        const responseCode = error.response;
-        if (error.reponse !== undefined) {
-          if (responseCode.status === 404) {
-            return false;
-          }
-        } else {
-          console.error(error);
-        }
-      });
+
+    try {
+      await userRequests.getUserByTokenId(token, tokenId.user_id);
+      sessionStorage.setItem('DMI_User', 'true');
+      return true;
+    } catch (error) {
+      if (error.response !== undefined && error.response.status === 404) {
+        return false;
+      } else {
+        console.log('Error locating your user account', error);
+        // await this.logoutFunction();
+        return 'error';
+      }
+    }
   };
 
   createNewUser = async () => {
