@@ -26,6 +26,7 @@ class PCScreen extends React.Component {
     inputSelectValue: '',
     selectedCharacter: {},
     currentInitiative: 0,
+    characterSelectIsValid: false,
   };
 
   signalRConnection = new HubConnectionBuilder()
@@ -120,8 +121,10 @@ class PCScreen extends React.Component {
   };
 
   selectCharacter = (event) => {
+    const selectValue = event.target.value;
     this.setState({
-      inputSelectValue: event.target.value,
+      characterSelectIsValid: selectValue === 'Choose your option' ? false : true,
+      inputSelectValue: selectValue,
     });
   };
 
@@ -170,7 +173,13 @@ class PCScreen extends React.Component {
   };
 
   render() {
-    const { messageCount, campaignCharacters, selectedCharacter, currentInitiative } = this.state;
+    const {
+      messageCount,
+      campaignCharacters,
+      selectedCharacter,
+      currentInitiative,
+      characterSelectIsValid,
+    } = this.state;
     return (
       <div className="PCScreen">
         <MDBContainer>
@@ -191,7 +200,7 @@ class PCScreen extends React.Component {
               <MDBBtn outline color="warning" onClick={this.modalToggle} size="sm">
                 Cancel
               </MDBBtn>
-              <MDBBtn outline color="success" onClick={this.loadCharacter} size="sm">
+              <MDBBtn outline color="success" disabled={!characterSelectIsValid} onClick={this.loadCharacter} size="sm">
                 Select
               </MDBBtn>
             </MDBModalFooter>
