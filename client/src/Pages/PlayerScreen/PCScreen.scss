@@ -4,8 +4,11 @@
   color: $themeWhite;
 }
 
+.pcscreen-character-text {
+  font-size: 30px;
+}
 .pcscreen-clock-row {
-  justify-content: flex-end;
+  justify-content: center;
   margin-right: auto;
 }
 
@@ -19,8 +22,13 @@
   color: $themeWhite;
 }
 
+.pcscreen-img-col {
+  display: flex;
+  justify-content: center;
+}
 .pcscreen-stats-col {
   display: flex;
+  justify-content: center;
 }
 
 .pcscreen-stats-text {
@@ -35,13 +43,17 @@
   margin: auto;
 }
 
+.pcscreen-svg-armor {
+  margin: 5px 20px 0 20px;
+}
+
 .pcscreen-stats-armorclass {
   text-align: center;
   width: 50px;
   margin: 0;
   position: relative;
   top: 78px;
-  right: -28px;
+  right: -48px;
   font-size: 35px;
   font-weight: bold;
 }
@@ -53,17 +65,6 @@
   position: relative;
   top: 78px;
   right: -45px;
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.pcscreen-stats-initiatve {
-  text-align: center;
-  width: 45px;
-  margin: 0;
-  position: relative;
-  top: 78px;
-  right: -32px;
   font-size: 35px;
   font-weight: bold;
 }
@@ -81,6 +82,11 @@
 
 .pcclass-stats-text {
   text-align: center;
+  font-weight: 400;
+}
+
+.ac-text {
+  margin-top: 8px;
 }
 
 .number-input input[type='number'] {

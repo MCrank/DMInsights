@@ -75,7 +75,6 @@ class Home extends React.Component {
         return false;
       } else {
         console.log('Error locating your user account', error);
-        // await this.logoutFunction();
         return 'error';
       }
     }

@@ -62,6 +62,10 @@ class DMScreen extends React.Component {
         });
       }
     });
+    // Remove PLayer
+    this.signalRConnection.on('RemovePlayerParty', (playerCharacter) => {
+      this.removeCampaignPlayer(playerCharacter);
+    });
   };
 
   updateInitTokens = async (newInitRoll) => {
@@ -83,6 +87,17 @@ class DMScreen extends React.Component {
       tempTokens.sort((a, b) => a.initiativeRoll - b.initiativeRoll);
       this.setState({
         initTrackerTokens: tempTokens,
+      });
+    }
+  };
+
+  removeCampaignPlayer = (playerCharacter) => {
+    let { campaignPlayers } = this.state;
+    let characterIndex = campaignPlayers.findIndex((character) => character.name === playerCharacter.name);
+    if (characterIndex > -1) {
+      campaignPlayers.splice(characterIndex, 1);
+      this.setState({
+        campaignPlayers: campaignPlayers,
       });
     }
   };
@@ -113,14 +128,15 @@ class DMScreen extends React.Component {
 
   componentDidMount() {
     this.getDbUserRequestItems().then(() => {
-      this.setupSignalR();
-      setInterval(
-        () =>
-          this.setState({
-            date: new Date(),
-          }),
-        1000
-      );
+      this.setupSignalR().then(() => {
+        setInterval(
+          () =>
+            this.setState({
+              date: new Date(),
+            }),
+          1000
+        );
+      });
     });
   }
 
@@ -160,7 +176,7 @@ class DMScreen extends React.Component {
     return (
       <div className="DMScreen">
         <MDBContainer fluid>
-          <MDBRow>
+          <MDBRow className="dmscreen-main-row">
             <MDBCol size="md-9">
               <h2 className="dmscreen-titles"> Initiative Tracker</h2>
               <MDBRow className="dmscreen-initiative-row">{initTrackers(initTrackerTokens)}</MDBRow>
@@ -169,16 +185,14 @@ class DMScreen extends React.Component {
                   Reset initiative
                 </MDBBtn>
               </MDBRow>
-              <hr />
               <h2 className="dmscreen-titles">Party Tents</h2>
               <MDBRow className="dmscreen-players-row">{dmPlayerCards(campaignPlayers)}</MDBRow>
-              <hr />
-              <MDBRow className="dmscreen-npc-row">Monsters</MDBRow>
-              <MDBRow className="dmscreen-notes-row">Notes?</MDBRow>
+              {/* <MDBRow className="dmscreen-npc-row">Monsters</MDBRow>
+              <MDBRow className="dmscreen-notes-row">Notes?</MDBRow> */}
             </MDBCol>
-            <MDBCol>
+            <MDBCol className="d-none d-md-block">
               <MDBRow className="dmscreen-clock-row">
-                <Clock format={'LT'} ticking={true} style={{ fontSize: '4rem' }} />
+                <Clock format={'LT'} ticking={true} style={{ fontSize: '3.5rem' }} />
               </MDBRow>
               <MDBRow>
                 <Widget

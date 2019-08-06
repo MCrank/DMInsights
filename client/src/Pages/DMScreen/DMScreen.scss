@@ -7,14 +7,29 @@ hr {
   border-top: 1px solid $themeWhite;
 }
 
+.dmscreen-main-row {
+  margin: 0 10px;
+}
+
 .dmscreen-initiative-row {
-  // height: 10vh;
-  border: 1px solid tomato;
+  min-height: 140px;
+  border: 2px solid $themePurple;
+  border-radius: 10px;
   padding: 10px;
+  justify-content: center;
+}
+
+.dmscreen-players-row {
+  min-height: 215px;
+  border: 2px solid $themeGold;
+  border-radius: 10px;
+  padding: 10px 0;
+  justify-content: center;
 }
 
 .dmscreen-titles {
   text-align: center;
+  text-decoration: underline;
 }
 .dmscreen-clock-row {
   justify-content: flex-end;
@@ -37,4 +52,8 @@ hr {
 
 .rcw-launcher {
   background-color: $themePrussian;
+}
+
+.init-reset {
+  margin-top: 15px;
 }

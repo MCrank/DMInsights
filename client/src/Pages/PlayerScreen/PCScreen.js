@@ -1,7 +1,17 @@
 import React from 'react';
 import { withAuth } from '@okta/okta-react';
 import { HubConnectionBuilder } from '@aspnet/signalr';
-import { MDBContainer, MDBCol, MDBRow, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBBtn } from 'mdbreact';
+import {
+  MDBContainer,
+  MDBCol,
+  MDBRow,
+  MDBModal,
+  MDBModalHeader,
+  MDBModalBody,
+  MDBModalFooter,
+  MDBBtn,
+  MDBInput,
+} from 'mdbreact';
 import { Widget, addResponseMessage } from 'react-chat-widget';
 import apiKeys from '../../helpers/apiKeys';
 import Clock from 'react-live-clock';
@@ -25,8 +35,9 @@ class PCScreen extends React.Component {
     campaignCharacters: [],
     inputSelectValue: '',
     selectedCharacter: {},
-    currentInitiative: 0,
+    currentInitiative: '',
     characterSelectIsValid: false,
+    showCharacterStats: false,
   };
 
   signalRConnection = new HubConnectionBuilder()
@@ -105,6 +116,8 @@ class PCScreen extends React.Component {
   }
 
   componentWillUnmount() {
+    const { signalRGroup, selectedCharacter } = this.state;
+    this.signalRConnection.invoke('CharacterLeaveParty', signalRGroup, selectedCharacter);
     this.signalRConnection.stop();
   }
 
@@ -134,6 +147,7 @@ class PCScreen extends React.Component {
     this.setState({
       selectedCharacter: chosenCharacter,
       currentInitiative: 0,
+      showCharacterStats: true,
     });
     this.modalToggle();
     this.signalRConnection.invoke('CharacterJoinedParty', signalRGroup, inputSelectValue);
@@ -179,10 +193,11 @@ class PCScreen extends React.Component {
       selectedCharacter,
       currentInitiative,
       characterSelectIsValid,
+      showCharacterStats,
     } = this.state;
     return (
       <div className="PCScreen">
-        <MDBContainer>
+        <MDBContainer fluid>
           <MDBModal isOpen={this.state.pcSelectModal} toggle={this.modalToggle} centered backdrop={false} dark>
             <MDBModalHeader toggle={this.modalToggle}>Campaign Character Select?</MDBModalHeader>
             <MDBModalBody>Select your character to play.</MDBModalBody>
@@ -206,91 +221,178 @@ class PCScreen extends React.Component {
             </MDBModalFooter>
           </MDBModal>
         </MDBContainer>
-        <MDBContainer fluid>
-          <MDBRow>
-            <MDBCol>
+        {showCharacterStats ? (
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol md="4">
+                <MDBInput
+                  className="pcscreen-character-text"
+                  label="Name"
+                  icon="address-card"
+                  size="lg"
+                  value={selectedCharacter.name}
+                  disabled
+                />
+              </MDBCol>
+              <MDBCol md="3">
+                <MDBInput
+                  className="pcscreen-character-text"
+                  label="Race"
+                  icon="dna"
+                  size="lg"
+                  value={selectedCharacter.characterRace}
+                  disabled
+                />
+              </MDBCol>
+              <MDBCol md="3">
+                <MDBInput
+                  className="pcscreen-character-text"
+                  label="Class"
+                  icon="theater-masks"
+                  size="lg"
+                  value={selectedCharacter.classes}
+                  disabled
+                />
+              </MDBCol>
+              <MDBCol md="2">
+                <MDBInput
+                  className="pcscreen-character-text"
+                  type="number"
+                  label="Level"
+                  icon="sort-amount-up"
+                  size="lg"
+                  value={selectedCharacter.level}
+                  disabled
+                />
+              </MDBCol>
+            </MDBRow>
+            <MDBRow className="pcscreen-main-char-row">
+              <MDBCol sm="12" md="4" className="pcscreen-img-col">
+                <img className="pcscreen-char-img" src={selectedCharacter.imageUrl} alt="" />
+              </MDBCol>
+              <MDBCol sm="12" md="6" className="pcscreen-stats-col">
+                <div className="pcscreen-stats-div">
+                  <p className="pcscreen-stats-armorclass">{selectedCharacter.armorClass}</p>
+                  <Icon
+                    className="pcscreen-svg pcscreen-svg-armor"
+                    title="Armor Class"
+                    path={mdiShieldOutline}
+                    size={4.5}
+                    color="#d9b310"
+                  />
+                  <p className="pcclass-stats-text ac-text">Armor Class</p>
+                </div>
+                <div>
+                  <p className="pcscreen-stats-hitpoints">{selectedCharacter.hitPoints}</p>
+                  <Icon className="pcscreen-svg" title="Hit Point" path={mdiHeartOutline} size={5} color="#d9b310" />
+                  <p className="pcclass-stats-text">Hit Points</p>
+                  <div className="def-number-input number-input">
+                    <button onClick={this.decrease} className="minus" />
+                    <input
+                      className="hitpoints"
+                      name="hitpoints"
+                      value={this.state.value}
+                      onChange={() => console.log('change')}
+                      type="number"
+                    />
+                    <button onClick={this.increase} className="plus" />
+                  </div>
+                </div>
+                <div>
+                  <p className="pcscreen-stats-initiative">{currentInitiative === null ? '' : currentInitiative}</p>
+                  <Icon className="pcscreen-svg" title="Initiative" path={mdiHexagonOutline} size={5} color="#d9b310" />
+                  <p className="pcclass-stats-text">Initiative</p>
+                  <div className="def-number-input number-input">
+                    <input
+                      className="initiative"
+                      name="initiative"
+                      value={this.state.currentInitiative}
+                      onChange={this.characterInitChange}
+                      type="number"
+                      onBlur={this.sendInitiative}
+                    />
+                  </div>
+                </div>
+              </MDBCol>
+              <MDBCol className="d-none d-md-block">
+                <MDBRow className="pcscreen-clock-row">
+                  <Clock format={'LT'} ticking={true} style={{ fontSize: '3rem' }} />
+                </MDBRow>
+              </MDBCol>
+            </MDBRow>
+            <MDBContainer>
               <MDBRow>
                 <MDBCol>
-                  <img className="pcscreen-char-img img-fluid" src={selectedCharacter.imageUrl} alt="" />
+                  <MDBRow center>
+                    <MDBCol md="4" sm="12">
+                      <MDBInput
+                        label="Type"
+                        icon="fingerprint"
+                        size="lg"
+                        value={selectedCharacter.characterType}
+                        disabled
+                      />
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow center>
+                    <MDBCol md="4" sm="12">
+                      <MDBInput
+                        type="number"
+                        label="Spell Save DC"
+                        icon="magic"
+                        size="lg"
+                        value={selectedCharacter.spellSaveDC}
+                        disabled
+                      />
+                    </MDBCol>
+                    <MDBCol md="4" sm="12">
+                      <MDBInput
+                        type="number"
+                        label="Initiative Modifier"
+                        icon="hourglass-start"
+                        size="lg"
+                        value={selectedCharacter.initiativeModifier}
+                        disabled
+                      />
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow center>
+                    <MDBCol md="4" sm="12">
+                      <MDBInput
+                        type="number"
+                        label="Passive Perception"
+                        icon="assistive-listening-systems"
+                        size="lg"
+                        value={selectedCharacter.passivePerception}
+                        disabled
+                      />
+                    </MDBCol>
+                    <MDBCol md="4" sm="12">
+                      <MDBInput
+                        type="number"
+                        label="Movement Speed"
+                        icon="running"
+                        size="lg"
+                        value={selectedCharacter.moveSpeed}
+                        disabled
+                      />
+                    </MDBCol>
+                  </MDBRow>
                 </MDBCol>
-                <MDBRow>
-                  <MDBCol className="pcscreen-stats-col">
-                    {/* <Stack size={4.5}> */}
-                    <div className="pcscreen-stats-div">
-                      <p className="pcscreen-stats-armorclass">{selectedCharacter.armorClass}</p>
-                      <Icon
-                        className="pcscreen-svg"
-                        title="Armor Class"
-                        path={mdiShieldOutline}
-                        size={4.5}
-                        color="#d9b310"
-                      />
-                      <p className="pcclass-stats-text">Armor Class</p>
-                    </div>
-                    <div>
-                      <p className="pcscreen-stats-hitpoints">{selectedCharacter.hitPoints}</p>
-                      <Icon
-                        className="pcscreen-svg"
-                        title="Hit Point"
-                        path={mdiHeartOutline}
-                        size={5}
-                        color="#d9b310"
-                      />
-                      <p className="pcclass-stats-text">Hit Points</p>
-                      <div className="def-number-input number-input">
-                        <button onClick={this.decrease} className="minus" />
-                        <input
-                          className="hitpoints"
-                          name="hitpoints"
-                          value={this.state.value}
-                          onChange={() => console.log('change')}
-                          type="number"
-                        />
-                        <button onClick={this.increase} className="plus" />
-                      </div>
-                    </div>
-                    <div>
-                      <p className="pcscreen-stats-initiative">{currentInitiative === null ? '' : currentInitiative}</p>
-                      <Icon
-                        className="pcscreen-svg"
-                        title="Initiative"
-                        path={mdiHexagonOutline}
-                        size={5}
-                        color="#d9b310"
-                      />
-                      <p className="pcclass-stats-text">Initiative</p>
-                      <div className="def-number-input number-input">
-                        <input
-                          className="initiative"
-                          name="initiative"
-                          value={this.state.currentInitiative}
-                          onChange={this.characterInitChange}
-                          type="number"
-                          onBlur={this.sendInitiative}
-                        />
-                      </div>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
               </MDBRow>
-              <MDBRow>Player Stats</MDBRow>
-              <MDBRow>Notes?</MDBRow>
-            </MDBCol>
-            <MDBCol>
-              <MDBRow className="pcscreen-clock-row">
-                <Clock format={'LT'} ticking={true} style={{ fontSize: '4rem' }} />
-              </MDBRow>
-            </MDBCol>
-          </MDBRow>
-          <Widget
-            handleNewUserMessage={this.sendMessage}
-            title="DM Insights Chat"
-            subtitle=""
-            autoficus="true"
-            fullscreenMode="false"
-            badge={messageCount}
-          />
-        </MDBContainer>
+            </MDBContainer>
+            <Widget
+              handleNewUserMessage={this.sendMessage}
+              title="DM Insights Chat"
+              subtitle=""
+              autoficus="true"
+              fullscreenMode="false"
+              badge={messageCount}
+            />
+          </MDBContainer>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

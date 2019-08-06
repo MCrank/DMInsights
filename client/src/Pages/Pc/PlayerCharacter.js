@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MDBContainer, MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBIcon, MDBCol } from 'mdbreact';
 import { withAuth } from '@okta/okta-react';
 import playerCharacterRequests from '../../helpers/data/playerCharacterRequests';
 import userRequests from '../../helpers/data/userRequests';
@@ -86,7 +86,9 @@ class PlayerCharacter extends React.Component {
             </MDBBtn>
           </MDBContainer>
         </Link>
-        <MDBContainer className="character-cards-main-container">{characterCards(playerCharacters)}</MDBContainer>
+        <MDBContainer className="character-cards-main-container">
+          <MDBCol className="character-card-col">{characterCards(playerCharacters)}</MDBCol>
+        </MDBContainer>
       </div>
     );
   }

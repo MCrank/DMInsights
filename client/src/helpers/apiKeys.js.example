@@ -1,13 +1,16 @@
 const apiKeys = {
-  firebaseConfig: {
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: '',
-  }
+  oktaConfig: {
+    issuer: '',
+    redirect_uri: `${window.location.origin}/implicit/callback`,
+    client_id: '',
+    onAuthRequired: ({ history }) => history.push('/login'),
+  },
+  DMInsightsAPI: {
+    baseUrl: 'https://localhost:44337/api',
+  },
+  DMIInsigtsHub: {
+    url: 'https://localhost:44337/battles',
+  },
 };
 
 export default apiKeys;
