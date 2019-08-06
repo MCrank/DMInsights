@@ -25,7 +25,7 @@ class PCScreen extends React.Component {
     campaignCharacters: [],
     inputSelectValue: '',
     selectedCharacter: {},
-    currentInitiative: 0,
+    currentInitiative: '',
     characterSelectIsValid: false,
   };
 
@@ -219,13 +219,13 @@ class PCScreen extends React.Component {
                     <div className="pcscreen-stats-div">
                       <p className="pcscreen-stats-armorclass">{selectedCharacter.armorClass}</p>
                       <Icon
-                        className="pcscreen-svg"
+                        className="pcscreen-svg pcscreen-svg-armor"
                         title="Armor Class"
                         path={mdiShieldOutline}
                         size={4.5}
                         color="#d9b310"
                       />
-                      <p className="pcclass-stats-text">Armor Class</p>
+                      <p className="pcclass-stats-text ac-text">Armor Class</p>
                     </div>
                     <div>
                       <p className="pcscreen-stats-hitpoints">{selectedCharacter.hitPoints}</p>
