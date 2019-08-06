@@ -175,9 +175,9 @@ class DMScreen extends React.Component {
               {/* <MDBRow className="dmscreen-npc-row">Monsters</MDBRow>
               <MDBRow className="dmscreen-notes-row">Notes?</MDBRow> */}
             </MDBCol>
-            <MDBCol>
+            <MDBCol className="d-none d-md-block">
               <MDBRow className="dmscreen-clock-row">
-                <Clock format={'LT'} ticking={true} style={{ fontSize: '4rem' }} />
+                <Clock format={'LT'} ticking={true} style={{ fontSize: '3.5rem' }} />
               </MDBRow>
               <MDBRow>
                 <Widget
