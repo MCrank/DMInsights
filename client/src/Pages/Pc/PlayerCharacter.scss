@@ -7,3 +7,14 @@
 .character-cards-main-container {
   padding-top: 25px;
 }
+
+.character-card-col {
+  overflow: auto;
+  overflow-y: auto;
+  height: 85vh;
+  scrollbar-width: none;
+}
+
+.character-card-col::-webkit-scrollbar {
+  width: 0 !important;
+}

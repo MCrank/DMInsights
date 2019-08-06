@@ -176,7 +176,7 @@ class DMScreen extends React.Component {
     return (
       <div className="DMScreen">
         <MDBContainer fluid>
-          <MDBRow>
+          <MDBRow className="dmscreen-main-row">
             <MDBCol size="md-9">
               <h2 className="dmscreen-titles"> Initiative Tracker</h2>
               <MDBRow className="dmscreen-initiative-row">{initTrackers(initTrackerTokens)}</MDBRow>
