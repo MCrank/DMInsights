@@ -3,12 +3,12 @@
 .DMScreenInitToken {
   background-color: $themeBlack;
   border: 1px solid $themeGold;
-  width: 75px;
-  height: 75px;
+  width: 105px;
+  height: 105px;
   margin: 5px;
   text-align: center;
   border-radius: 15%;
-  box-shadow: 2px 2px 5px 2px $themeGold//#b5b5b5;
+  box-shadow: 2px 2px 5px 2px $themeGold; //#b5b5b5;
 }
 
 .token {
@@ -19,6 +19,7 @@
   }
 
   p {
+    font-size: 1.3em;
     display: block;
     font-weight: bold;
   }

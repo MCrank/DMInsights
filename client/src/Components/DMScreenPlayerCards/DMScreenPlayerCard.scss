@@ -9,6 +9,21 @@
 .dmscreen-player-card {
   width: 12rem;
   background-color: $themePrussian;
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 197px;
+  }
+}
+
+.card-img-overlay {
+  background: linear-gradient(rgba(29, 39, 49, 0.75), rgba(29, 39, 49, 0.75));
+  padding: 0;
+}
+
+.dmscreen-player-card-body {
+  text-shadow: 1px 2px black;
 }
 
 .dmscreen-player-card-divider {

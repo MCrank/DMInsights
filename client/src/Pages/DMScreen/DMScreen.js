@@ -113,14 +113,15 @@ class DMScreen extends React.Component {
 
   componentDidMount() {
     this.getDbUserRequestItems().then(() => {
-      this.setupSignalR();
-      setInterval(
-        () =>
-          this.setState({
-            date: new Date(),
-          }),
-        1000
-      );
+      this.setupSignalR().then(() => {
+        setInterval(
+          () =>
+            this.setState({
+              date: new Date(),
+            }),
+          1000
+        );
+      });
     });
   }
 
@@ -169,12 +170,10 @@ class DMScreen extends React.Component {
                   Reset initiative
                 </MDBBtn>
               </MDBRow>
-              <hr />
               <h2 className="dmscreen-titles">Party Tents</h2>
               <MDBRow className="dmscreen-players-row">{dmPlayerCards(campaignPlayers)}</MDBRow>
-              <hr />
-              <MDBRow className="dmscreen-npc-row">Monsters</MDBRow>
-              <MDBRow className="dmscreen-notes-row">Notes?</MDBRow>
+              {/* <MDBRow className="dmscreen-npc-row">Monsters</MDBRow>
+              <MDBRow className="dmscreen-notes-row">Notes?</MDBRow> */}
             </MDBCol>
             <MDBCol>
               <MDBRow className="dmscreen-clock-row">
