@@ -116,6 +116,8 @@ class PCScreen extends React.Component {
   }
 
   componentWillUnmount() {
+    const { signalRGroup, selectedCharacter } = this.state;
+    this.signalRConnection.invoke('CharacterLeaveParty', signalRGroup, selectedCharacter);
     this.signalRConnection.stop();
   }
 

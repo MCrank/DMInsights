@@ -48,5 +48,10 @@ namespace DMInsights.Hubs
         {
             await Clients.Group(groupName).SendAsync("ResetInitiative");
         }
+
+        public async Task CharacterLeaveParty(string groupName, PlayerCharacter playerToRemove)
+        {
+            await Clients.Group(groupName).SendAsync("RemovePlayerParty", playerToRemove);
+        }
     }
 }

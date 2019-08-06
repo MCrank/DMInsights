@@ -62,6 +62,10 @@ class DMScreen extends React.Component {
         });
       }
     });
+    // Remove PLayer
+    this.signalRConnection.on('RemovePlayerParty', (playerCharacter) => {
+      this.removeCampaignPlayer(playerCharacter);
+    });
   };
 
   updateInitTokens = async (newInitRoll) => {
@@ -83,6 +87,17 @@ class DMScreen extends React.Component {
       tempTokens.sort((a, b) => a.initiativeRoll - b.initiativeRoll);
       this.setState({
         initTrackerTokens: tempTokens,
+      });
+    }
+  };
+
+  removeCampaignPlayer = (playerCharacter) => {
+    let { campaignPlayers } = this.state;
+    let characterIndex = campaignPlayers.findIndex((character) => character.name === playerCharacter.name);
+    if (characterIndex > -1) {
+      campaignPlayers.splice(characterIndex, 1);
+      this.setState({
+        campaignPlayers: campaignPlayers,
       });
     }
   };
