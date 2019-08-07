@@ -1,9 +1,6 @@
 ﻿using DMInsights.Models.NonPlayerCharacters;
 using DMInsights.Models.PlayerCharacters;
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DMInsights.Hubs

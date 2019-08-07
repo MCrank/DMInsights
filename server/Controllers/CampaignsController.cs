@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DMInsights.Data;
+﻿using DMInsights.Data;
 using DMInsights.Models.Campaigns;
 using DMInsights.Models.Encounters;
 using DMInsights.Models.GameSessions;
 using DMInsights.Models.PlayerCharacters;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DMInsights.Controllers

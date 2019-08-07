@@ -257,7 +257,6 @@ class PCScreen extends React.Component {
               <MDBCol md="2">
                 <MDBInput
                   className="pcscreen-character-text"
-                  type="number"
                   label="Level"
                   icon="sort-amount-up"
                   size="lg"
@@ -337,7 +336,6 @@ class PCScreen extends React.Component {
                   <MDBRow center>
                     <MDBCol md="4" sm="12">
                       <MDBInput
-                        type="number"
                         label="Spell Save DC"
                         icon="magic"
                         size="lg"
@@ -347,7 +345,6 @@ class PCScreen extends React.Component {
                     </MDBCol>
                     <MDBCol md="4" sm="12">
                       <MDBInput
-                        type="number"
                         label="Initiative Modifier"
                         icon="hourglass-start"
                         size="lg"
@@ -359,7 +356,6 @@ class PCScreen extends React.Component {
                   <MDBRow center>
                     <MDBCol md="4" sm="12">
                       <MDBInput
-                        type="number"
                         label="Passive Perception"
                         icon="assistive-listening-systems"
                         size="lg"
@@ -369,7 +365,6 @@ class PCScreen extends React.Component {
                     </MDBCol>
                     <MDBCol md="4" sm="12">
                       <MDBInput
-                        type="number"
                         label="Movement Speed"
                         icon="running"
                         size="lg"
