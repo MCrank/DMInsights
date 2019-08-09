@@ -1,68 +1,72 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# DM Insights
 
-## Available Scripts
+This is my end of course capstone project. It is designed to test my skills learned over the last 12-months of evening classes completed at the Nashville Software School.
 
-In the project directory, you can run:
+This is a web app built with `ReactJS`, `ASP.Net Core 3.0(Preview)`, `MDBReact`, `SignalR`, and `Okta` for OIDC/OAuth. DM Insights is an app to help facilitate the management of combat scenarios in a tabletop role playing game such as Dungeons and Dragons. It allows players and dungeon masters to manage their Characters, Non-Player Characters, and Campaigns.
 
-### `npm start`
+Players can join their characters to campaigns once provided an invite code from the owner of a campaign. This provides the Dungeon Master a view to better manage combat encounters by tracking initiative and providing basic player stats.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Players can also leverage the built-in chat to send messages to each other and in the future whisper each other privately.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+<hr>
 
-### `npm test`
+## Requirements
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Use our skills we have learned over the course of the past 12-Months to build an app using the following guidelines
+- Use C#, .Net Core, and `ASP.Net Core` to build a back-end API
+- Use SQL Server as a repository for Application Data
+- Use ReactJS or other JavaScript Framework to provide a front end to our API
 
-### `npm run build`
+<hr>
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Screenshots
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Here are some screenshots of the application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Home Page
 
-### `npm run eject`
+![Home](./Screenshots/Home.jpg)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Characters Page
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Screenshot](./Screenshots/Characters.jpg)
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Non-Player Characters Page
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![Screenshot](./Screenshots/NPC.jpg)
 
-## Learn More
+#### Campaigns Page
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Screenshot](./Screenshots/Campaigns.jpg)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Dungeon Master Screen
 
-### Code Splitting
+![Screenshot](./Screenshots/DMScreen.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+#### Player Character Screen
 
-### Analyzing the Bundle Size
+![Screenshot](./Screenshots/PlayerScreen.jpg)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## How to run this project
 
-### Making a Progressive Web App
+<hr>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### Requirements
 
-### Advanced Configuration
+- NodeJS for NPM
+- .Net Core SDK 3.0 Preview 7
+- Okta Developer Account - (https://developer.okta.com/)
+- Visual Studio 2019 Preview (required to run .net 3.0 Preview)
+- SQL Server 2017 Developer Edition
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Start Project
 
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Clone the repo
+- Login to the Okta Developer Portal
+  - Create an application inside Okta using the Single Page App option and change the Base and Login URIs to port 3000
+  - Use the `/src/helpers/apiKeys.js.example` enter your oktaConfig information and rename to `apiKeys.js`
+- Run the `DMInsights_Seed.sql` script in SQL to create the DB
+- Open a terminal and change to the `client` directory and run `npm install`
+- Open Visual Studio and open the `DMInsights.sln` file in the `server` directory start the project.
+- In your terminal type `npm start` to fire up the front end code
+- Enjoy
