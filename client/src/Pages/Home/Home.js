@@ -104,26 +104,21 @@ class Home extends React.Component {
   render() {
     return (
       <div className="Home">
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
-        <div class="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
         <MDBContainer>
           <img className="img-fluid logo" src={logo} alt="" />
           <div className="home-text">
