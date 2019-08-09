@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DMInsights.Models.Users
+﻿namespace DMInsights.Models.Users
 {
     public class UserCreate
     {

@@ -1,6 +1,8 @@
 import React from 'react';
 import userRequests from '../../helpers/data/userRequests';
 import { withAuth } from '@okta/okta-react';
+import { MDBContainer } from 'mdbreact';
+import logo from '../../../src/images/dm_insights2.png';
 import './Home.scss';
 
 class Home extends React.Component {
@@ -102,7 +104,30 @@ class Home extends React.Component {
   render() {
     return (
       <div className="Home">
-        <h1>Home Page</h1>
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <div className="firefly" />
+        <MDBContainer>
+          <img className="img-fluid logo" src={logo} alt="" />
+          <div className="home-text">
+            <h1 className="h1-responsive">Welcome to DM Insights.</h1>
+            <p className="h3-responsive">
+              A tool to help setup and manage Encounters in Table Top Role Playing Games (RPGs)
+            </p>
+          </div>
+        </MDBContainer>
       </div>
     );
   }

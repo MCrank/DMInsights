@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DMInsights.Models.PlayerCharacters
+﻿namespace DMInsights.Models.PlayerCharacters
 {
     public class PlayerCharacterCreate
     {

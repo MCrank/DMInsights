@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DMInsights.Data;
+﻿using DMInsights.Data;
 using DMInsights.Models.PlayerCharacters;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DMInsights.Controllers
